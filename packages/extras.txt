@@ -1,0 +1,18 @@
+# Optional extras — install later with scripts/install-extras.sh
+firefox
+imv
+mpv
+grim
+slurp
+playerctl
+udiskie
+waybar
+ripgrep
+fd
+bat
+man-db
+bash-completion
+openssh
+gnupg
+fwupd
+xdg-desktop-portal-gnome

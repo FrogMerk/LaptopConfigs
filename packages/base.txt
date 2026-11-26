@@ -1,0 +1,9 @@
+# Base system — one package per line, comments only on their own line.
+base
+linux
+linux-lts
+linux-firmware
+intel-ucode
+sudo
+networkmanager
+git
