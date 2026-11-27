@@ -1,7 +1,7 @@
 [Default Applications]
-x-scheme-handler/http=firefox.desktop
-x-scheme-handler/https=firefox.desktop
-text/html=firefox.desktop
+x-scheme-handler/http=org.gnome.Epiphany.desktop
+x-scheme-handler/https=org.gnome.Epiphany.desktop
+text/html=org.gnome.Epiphany.desktop
 inode/directory=org.gnome.Nautilus.desktop
 image/png=imv.desktop
 image/jpeg=imv.desktop

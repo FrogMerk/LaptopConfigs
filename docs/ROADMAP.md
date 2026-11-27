@@ -46,7 +46,7 @@ Status: 2026-11-27
 
 ## 2 — niri ergonomics
 
-- [x] Window rules: float utilities, viewers, Firefox PiP, dropdown terminal
+- [x] Window rules: float utilities, viewers, dropdown terminal
 - [x] Dropdown terminal (`Mod+Grave`)
 - [x] Clipboard history (`cliphist` + fuzzel)
 - [x] Screenshot workflow: built-in UI plus region/full to clipboard
@@ -97,5 +97,5 @@ See `docs/EXPANSION.md` for the full backlog.
 ## Next up
 
 The look-and-feel pass is complete. The next phase is logged in
-`docs/EXPANSION.md`: the CLI batch, annotated screenshots, a Firefox theme and
-backups. Start a fresh session with `git pull`, `make validate`, `make test`.
+`docs/EXPANSION.md`: the CLI batch, annotated screenshots, Epiphany web apps
+and backups. Start a fresh session with `git pull`, `make validate`, `make test`.

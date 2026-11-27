@@ -12,7 +12,7 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - Alacritty + Zsh + Starship, themed with Everforest Dark
 - Waybar, mako, fuzzel, gtklock and wpaperd
 - Clipboard history (cliphist) and removable-drive automount (udiskie)
-- micro, xdg default-app associations and personal helper scripts
+- Epiphany (GNOME Web), micro, xdg default-app associations and personal helper scripts
 - Monthly maintenance timer and a one-command restore test
 - nftables default-deny inbound firewall
 - Weekly reflector mirror refresh (Australia, HTTPS)
@@ -143,19 +143,19 @@ Touchpad gestures are niri's defaults: horizontal scroll pans the column view, s
 | Key | Workspace | Used for |
 |---|---|---|
 | `Mod+1` | `term` | terminals |
-| `Mod+2` | `web` | Firefox |
+| `Mod+2` | `web` | Epiphany |
 | `Mod+3` | `code` | editors and IDEs |
 | `Mod+4` | `media` | mpv, imv, image viewers |
 | `Mod+5` | `chat` | Discord, Signal, Telegram, Slack |
 | `Mod+6` | `files` | Nautilus |
 | `Mod+7..9` | dynamic | scratch workspaces |
 
-Waybar shows the workspace names. Apps route automatically: Firefox to `web`, Nautilus to `files`, viewers to `media`, and chat/code apps to their workspaces. New windows use the rules in `dotfiles/niri/.config/niri/config.kdl`; move anything manually with `Mod+Shift+<number>`.
+Waybar shows the workspace names. Apps route automatically: Epiphany to `web`, Nautilus to `files`, viewers to `media`, and chat/code apps to their workspaces. New windows use the rules in `dotfiles/niri/.config/niri/config.kdl`; move anything manually with `Mod+Shift+<number>`.
 
 ## Defaults
 
 - Editor: micro (`EDITOR=micro`, non-modal terminal editor)
-- Browser: Firefox
+- Browser: Epiphany (GNOME Web). NordPass has no Epiphany extension; use the NordPass web vault and copy/paste, or keep passwords in Epiphany's own keyring
 - Files: Nautilus
 - Images: imv
 - Video: mpv

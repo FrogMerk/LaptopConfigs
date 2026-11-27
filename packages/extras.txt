@@ -1,8 +1,10 @@
 # Optional extras — install later with scripts/install-extras.sh
-firefox
+epiphany
 imv
 mpv
 ffmpeg
+gst-libav
+gst-plugin-va
 grim
 slurp
 playerctl

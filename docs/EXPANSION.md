@@ -59,7 +59,6 @@ make test
 - [x] Tune focus ring, border, shadow and overview colours
 - [ ] Workspace-specific gaps or struts: not needed at this layout
 - [x] Overview and workspace-switch visuals: zoom, backdrop, shadow, springs
-- [ ] Firefox theme (`userChrome`/`userContent`) or a matching extension theme
 - [x] Editor: micro replaces Neovim; Everforest shell and app theme carry over
       without a modal editor config
 - [x] Starship prompt refinement: reviewed; the minimal two-line prompt is kept
@@ -93,7 +92,7 @@ make test
 - [ ] Verify cliphist handles images as well as text
 - [ ] mpv config and MPRIS/Waybar media integration
 - [ ] File manager: Nautilus tweaks or a yazi-first workflow
-- [ ] Browser: extensions, PWA, container tabs, VA-API check
+- [ ] Browser: Epiphany web apps, bookmarks, VA-API/GStreamer check
 - [ ] Communication apps (Signal/Discord/Telegram) via repo, Flatpak or AUR
 - [ ] PDF/office tooling if needed
 - [ ] More MIME defaults (archives, PDFs, mail, calendars)
@@ -143,12 +142,11 @@ The look-and-feel pass is complete. Next up:
 1. Optional micro theme/syntax tweaks; the editor works out of the box.
 2. Install the first CLI batch (`eza`, `zoxide`, `fzf`, `btop`, `lazygit`).
 3. Add annotated screenshots (`swappy` or `satty`).
-4. Add a Firefox `userChrome`/`userContent` Everforest theme.
+4. Try Epiphany web apps and check VA-API playback with the GStreamer plugins.
 5. Test the external-monitor profile when hardware is available.
 
 ## Open questions
 
-- Firefox: how much chrome should the theme repaint?
 - AUR helper: `paru` or `yay`?
 - Backups: local external disk, remote, or both?
 - Commit signing: SSH key or a dedicated GPG key?

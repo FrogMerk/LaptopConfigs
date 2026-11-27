@@ -113,22 +113,11 @@ window-rule {
     default-window-height { fixed 720; }
 }
 
-// Firefox Picture-in-Picture: small, bottom-right, never steal focus.
+// Browser gets the whole web workspace by default; resize for side-by-side.
 window-rule {
-    match app-id="firefox$" title="^Picture-in-Picture"
-    open-floating true
-    open-focused false
-    default-column-width { fixed 480; }
-    default-window-height { fixed 270; }
-    default-floating-position x=24 y=24 relative-to="bottom-right"
-}
-
-// Firefox gets a wider column; the PiP window is excluded above.
-window-rule {
-    match app-id="firefox$"
-    exclude title="^Picture-in-Picture"
+    match app-id=r#"^(org\.gnome\.Epiphany|epiphany)$"#
     open-on-workspace "web"
-    default-column-width { proportion 0.66; }
+    default-column-width { proportion 1.0; }
 }
 
 // File manager: half-screen column on its own workspace.
