@@ -105,7 +105,9 @@ make test
 
 - [ ] Password store (`pass` + GPG/age) and browser integration
 - [ ] Commit signing (SSH or GPG) and GitHub signing key
-- [ ] Backups: restic to an external disk or remote, plus a restore drill
+- [x] Backups: encrypted restic repo for `/home/eddo` and `/etc`, daily
+      timer, 7/4/6 retention and `make backup-test`; local staging at
+      `/var/backups/restic`, off-device copy still pending
 - [ ] AUR helper and base-devel for future packages
 - [ ] Git extras: delta, lazygit, difftastic?
 - [ ] Personal scripts: fuzzel modes, quick notes, project launcher
@@ -114,7 +116,8 @@ make test
 
 ## 3. System and reliability
 
-- [ ] Backup strategy and schedule; test restoring `$HOME` and `/etc`
+- [x] Backup strategy and schedule; `$HOME` and `/etc` snapshot validated
+      with the restore drill
 - [ ] Journald retention decision
 - [ ] Firewall refinement if SSH or local services are added
 - [ ] Kernel strategy: stay on `linux`, test `linux-lts` boot
@@ -141,9 +144,10 @@ make test
 
 ## Suggested next session
 
-The look-and-feel and CLI batches are complete. Next up:
+The look-and-feel, CLI and backup batches are complete. Next up:
 
-1. Backups: choose a target and do a restic restore drill.
+1. Copy the restic repository to an external disk or remote target and re-run
+   the restore drill against it.
 2. Epiphany web apps and bookmark import.
 3. External-monitor test when hardware is available.
 4. Commit signing, AUR helper and idle-power measurement.
@@ -152,6 +156,6 @@ The look-and-feel and CLI batches are complete. Next up:
 ## Open questions
 
 - AUR helper: `paru` or `yay`?
-- Backups: local external disk, remote, or both?
+- Backups: which off-device target — external disk, remote, or both?
 - Commit signing: SSH key or a dedicated GPG key?
 - External monitor: resolution and port when available?

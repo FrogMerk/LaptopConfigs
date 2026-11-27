@@ -92,11 +92,12 @@ See `docs/EXPANSION.md` for the full backlog.
 - [x] Waybar v2 and wallpaper manager
 - [x] GTK/icon/cursor theme depth (Qt deferred until needed)
 - [x] Editor and shell upgrades (micro, eza, zoxide, fzf, btop, lazygit, fastfetch)
-- [ ] Backups, signing, AUR tooling and daily-workflow extras
+- [x] Backups: restic for `/home` and `/etc`, daily timer and restore drill
+- [ ] Commit signing, AUR tooling and daily-workflow extras
 
 ## Next up
 
-The look-and-feel and CLI passes are complete. The next phase is logged in
-`docs/EXPANSION.md`: backups, Epiphany web apps, commit signing/AUR tooling and
-idle-power measurement. Start a fresh session with `git pull`, `make validate`,
-`make test`.
+The look-and-feel, CLI and backup passes are complete. The next phase is logged
+in `docs/EXPANSION.md`: move the restic repo off-device, Epiphany web apps,
+commit signing/AUR tooling and idle-power measurement. Start a fresh session
+with `git pull`, `make validate`, `make test`.
