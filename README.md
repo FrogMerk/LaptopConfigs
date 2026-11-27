@@ -10,7 +10,7 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - niri scrollable tiling with native touchpad gestures
 - greetd + tuigreet login, starting `niri-session`
 - Alacritty + Zsh + Starship, themed with Everforest Dark
-- Waybar, mako, fuzzel, swaylock and swaybg
+- Waybar, mako, fuzzel, swaylock and wpaperd
 - Clipboard history (cliphist) and removable-drive automount (udiskie)
 - Neovim, xdg default-app associations and personal helper scripts
 - Monthly maintenance timer and a one-command restore test
@@ -119,6 +119,8 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+Shift+F` | fullscreen |
 | `Mod+V` | toggle floating |
 | `Mod+Shift+V` | clipboard history (cliphist + fuzzel) |
+| `Mod+Shift+W` | wallpaper picker |
+| `Mod+Alt+W` | next wallpaper |
 | `Mod+Space` | focus floating/tiling |
 | `Mod+O` | overview |
 | `Super+Alt+L` | lock |
@@ -132,7 +134,7 @@ missing desktop packages and sets the login shell in one step.
 
 `udiskie` runs at login, automounts removable drives and shows a Waybar tray icon. Clipboard history uses `cliphist` + fuzzel and is installed by the baseline script.
 
-Idle policy: lock after 5 minutes, display off after 6 minutes, suspend after 20 minutes. Lock is `swayidle` → `swaylock`; suspend is skipped when an app holds an idle inhibitor.
+Idle policy: lock after 5 minutes, display off after 6 minutes, suspend after 20 minutes. Lock is `swayidle` → `lock-screen` (swaylock with the current wallpaper); suspend is skipped when an app holds an idle inhibitor.
 
 Touchpad gestures are niri's defaults: horizontal scroll pans the column view, swipes switch workspaces. Tune `input.touchpad` in `dotfiles/niri/.config/niri/config.kdl`.
 
@@ -163,13 +165,30 @@ Associations live in `dotfiles/xdg/.config/mimeapps.list`; `xdg-mime query defau
 
 ## Theming
 
-Everforest Dark (medium contrast) is applied across niri, Alacritty, Waybar, fuzzel, mako, swaylock, Starship and GTK accents. See `docs/THEME.md` for the palette and the file map.
+Everforest Dark (medium contrast) is applied across niri, Alacritty, Waybar,
+fuzzel, mako, swaylock, Starship, the greetd greeter and a full Everforest GTK
+theme. Papirus-Dark gets a green folder overlay (`make icons`), and niri blurs
+the wallpaper behind the terminal, launcher and notifications. See
+`docs/THEME.md` for the palette, files and licensing notes.
 
-Regenerate the wallpaper (stdlib only, no external assets):
+## Wallpapers
+
+`wpaperd` cycles everything you put in `~/Pictures/Wallpapers` every 30
+minutes (subdirectories included). Control it with:
 
 ```bash
-./scripts/make-wallpaper.py
+wallpaper pick      # choose with fuzzel (also Mod+Shift+W)
+wallpaper next      # or Mod+Alt+W
+wallpaper prev
+wallpaper pause
+wallpaper resume
+wallpaper current   # print the active image
 ```
+
+`wpaperd` keeps a symlink to the active image in
+`~/.local/state/wpaperd/wallpapers`; the lock screen uses it too. To change the
+directory or interval, edit
+`dotfiles/wpaperd/.config/wpaperd/config.toml`.
 
 ## T480 notes
 
@@ -259,14 +278,14 @@ left.
 │   ├── bin/.local/bin/
 │   ├── fuzzel/.config/fuzzel/fuzzel.ini
 │   ├── gtk/.config/gtk-3.0/settings.ini
-│   ├── gtk/.config/gtk-3.0/gtk.css
-│   ├── gtk/.config/gtk-4.0/settings.ini
-│   ├── gtk/.config/gtk-4.0/gtk.css
+│   ├── gtk/.config/gtk-4.0/ (Everforest libadwaita override)
+│   ├── gtk/.themes/Everforest-Green-Dark-Medium/
 │   ├── mako/.config/mako/config
 │   ├── niri/.config/niri/config.kdl
 │   ├── starship/.config/starship.toml
 │   ├── swaylock/.config/swaylock/config
 │   ├── systemd-user/.config/systemd/user/
+│   ├── wpaperd/.config/wpaperd/config.toml
 │   ├── waybar/.config/waybar/config.jsonc
 │   ├── waybar/.config/waybar/style.css
 │   ├── xdg/.config/mimeapps.list
@@ -286,11 +305,11 @@ left.
 │   └── THEME.md
 ├── scripts/
 │   ├── apply-dotfiles.sh
+│   ├── apply-everforest-icons.sh
 │   ├── apply-system-fixes.sh
 │   ├── install-baseline.sh
 │   ├── install-extras.sh
 │   ├── maintenance-check.sh
-│   ├── make-wallpaper.py
 │   └── test-restore.sh
 └── post-install.sh
 ```
@@ -300,7 +319,7 @@ left.
 - **greetd loop or black screen:** `systemctl status greetd`, then `journalctl -u greetd`. Verify `/etc/greetd/config.toml` runs `tuigreet --cmd niri-session`.
 - **niri won't start after editing config:** run `niri validate`. A bad config at startup prevents the session; live reload keeps the last working state.
 - **Waybar missing or empty:** run `waybar` from a terminal and read the error; check `~/.config/waybar/config.jsonc`. niri hot-reloads binds, but `spawn-at-startup` only runs on login.
-- **No wallpaper:** confirm `swaybg` is installed and `~/Pictures/Wallpapers/everforest-forest.png` exists; regenerate with `./scripts/make-wallpaper.py`.
+- **No wallpaper:** confirm `wpaperd` is installed, `~/Pictures/Wallpapers` contains images, and `wpaperctl status` reports a running output. Check `~/.config/wpaperd/config.toml` and `journalctl --user -b` for parse errors.
 - **No audio:** `systemctl --user status pipewire wireplumber`.
 - **Wi-Fi not connecting:** `nmcli device wifi list`, then `nmtui`.
 - **Boot entry missing:** from the live ISO, mount the ESP and run `bootctl --esp-path=/mnt/boot install`, then recreate the loader entries.

@@ -1,3 +1,19 @@
 #!/usr/bin/env bash
+# Lock the session, using the current wallpaper when wpaperd is running.
 set -Eeuo pipefail
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/wpaperd/wallpapers"
+image=
+
+for path in "$state_dir"/*; do
+  if [[ -L "$path" ]]; then
+    image="$(readlink -f "$path")"
+    break
+  fi
+done
+
+if [[ -n "$image" && -f "$image" ]]; then
+  exec swaylock -f -i "$image" -s fill
+fi
+
 exec swaylock -f

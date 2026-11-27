@@ -1,0 +1,5 @@
+Everforest GTK Theme — green / dark / medium / standard
+Upstream: https://github.com/Fausto-Korpsvart/Everforest-GTK-Theme
+Commit: 9b8be4d6648ae9eaae3dd550105081f8c9054825
+Built with: ./themes/install.sh -t green -c dark -s standard --tweaks medium
+License: GPL-3.0 (see LICENSE)

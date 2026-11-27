@@ -1,4 +1,4 @@
-.PHONY: help dots validate test check wallpaper update push
+.PHONY: help dots validate test check icons update push
 
 help:
 	@printf '%s\n' \
@@ -6,7 +6,7 @@ help:
 	  'validate   validate niri and shell configs' \
 	  'test       restore the repo into a temp HOME and validate' \
 	  'check      run the monthly maintenance report' \
-	  'wallpaper  regenerate the wallpaper' \
+	  'icons      build the green Papirus folder overlay' \
 	  'update     full system upgrade' \
 	  'push       push the config repo'
 
@@ -23,8 +23,8 @@ test:
 check:
 	./scripts/maintenance-check.sh
 
-wallpaper:
-	./scripts/make-wallpaper.py
+icons:
+	./scripts/apply-everforest-icons.sh
 
 update:
 	sudo pacman -Syu

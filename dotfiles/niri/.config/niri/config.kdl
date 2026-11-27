@@ -46,6 +46,27 @@ workspace "media"
 workspace "chat"
 workspace "files"
 
+overview {
+    zoom 0.5
+    backdrop-color "#232a2e"
+
+    workspace-shadow {
+        softness 40
+        spread 10
+        offset x=0 y=10
+        color "#00000060"
+    }
+}
+
+// Blur is rendered once against the wallpaper (xray) and reused, so it is
+// effectively free while idle. Values are tuned for a soft, low-contrast look.
+blur {
+    passes 3
+    offset 3.0
+    noise 0.02
+    saturation 1.2
+}
+
 layout {
     gaps 12
     center-focused-column "never"
@@ -163,15 +184,77 @@ window-rule {
     }
 }
 
+// Frosted terminal and dropdown, using Alacritty's 0.85 opacity.
+window-rule {
+    match app-id="^(Alacritty|dropdown)$"
+    background-effect {
+        blur true
+    }
+}
+
+// Frosted launcher and notification surfaces.
+layer-rule {
+    match namespace="^(launcher|notifications)$"
+    background-effect {
+        blur true
+    }
+}
+
 // Keep password managers out of screencasts.
 window-rule {
     match app-id="^(org.keepassxc.KeePassXC|Bitwarden|1password)$"
     block-out-from "screencast"
 }
 
-// Disabled for battery life on the T480 iGPU; revisit in the look/feel phase.
+// Subtle, critically damped motion. Idle power is unaffected; the iGPU only
+// wakes for the short transitions themselves.
 animations {
-    off
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1100 epsilon=0.0001
+    }
+
+    window-open {
+        duration-ms 140
+        curve "ease-out-cubic"
+    }
+
+    window-close {
+        duration-ms 120
+        curve "ease-out-quad"
+    }
+
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=950 epsilon=0.0001
+    }
+
+    window-movement {
+        spring damping-ratio=1.0 stiffness=950 epsilon=0.0001
+    }
+
+    window-resize {
+        spring damping-ratio=1.0 stiffness=950 epsilon=0.0001
+    }
+
+    config-notification-open-close {
+        spring damping-ratio=0.9 stiffness=1000 epsilon=0.001
+    }
+
+    exit-confirmation-open-close {
+        spring damping-ratio=0.9 stiffness=600 epsilon=0.01
+    }
+
+    screenshot-ui-open {
+        duration-ms 180
+        curve "ease-out-cubic"
+    }
+
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=950 epsilon=0.0001
+    }
+
+    recent-windows-close {
+        spring damping-ratio=1.0 stiffness=950 epsilon=0.001
+    }
 }
 
 cursor {
@@ -188,10 +271,11 @@ environment {
 spawn-at-startup "mako"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "waybar"
-spawn-at-startup "sh" "-c" "swaybg -i $HOME/Pictures/Wallpapers/everforest-forest.png -m fill"
+spawn-at-startup "wpaperd"
+spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "udiskie" "--automount" "--notify" "--tray"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
-spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "timeout" "360" "niri msg action power-off-monitors" "timeout" "1200" "systemctl suspend" "before-sleep" "swaylock -f"
+spawn-at-startup "swayidle" "-w" "timeout" "300" "$HOME/.local/bin/lock-screen" "timeout" "360" "niri msg action power-off-monitors" "timeout" "1200" "systemctl suspend" "before-sleep" "$HOME/.local/bin/lock-screen"
 
 hotkey-overlay {
     skip-at-startup
@@ -266,6 +350,8 @@ binds {
     Mod+Period { expel-window-from-column; }
     Mod+O { toggle-overview; }
     Mod+Shift+V { spawn-sh "$HOME/.local/bin/clipboard-history"; }
+    Mod+Shift+W { spawn-sh "$HOME/.local/bin/wallpaper pick"; }
+    Mod+Alt+W { spawn-sh "$HOME/.local/bin/wallpaper next"; }
 
     // Session, screenshots, hotkey help
     Super+Alt+L { spawn-sh "$HOME/.local/bin/lock-screen"; }

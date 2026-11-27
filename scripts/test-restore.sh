@@ -34,12 +34,20 @@ links=(
   .config/gtk-4.0
   .config/mimeapps.list
   .config/systemd/user/maintenance-check.timer
+  .config/wpaperd
+  .themes/Everforest-Green-Dark-Medium
   .zshrc
   .local/bin/screenshot-region
+  .local/bin/wallpaper
 )
 for link in "${links[@]}"; do
   [[ -e "$tmp/home/$link" ]] || fail "missing restored path: $link"
 done
+
+[[ -s "$tmp/home/.themes/Everforest-Green-Dark-Medium/gtk-3.0/gtk.css" ]] ||
+  fail "GTK3 theme is missing"
+[[ -s "$tmp/home/.config/gtk-4.0/gtk.css" ]] ||
+  fail "GTK4 theme override is missing"
 
 log "Validating niri config"
 HOME="$tmp/home" XDG_CONFIG_HOME="$tmp/home/.config" \
@@ -55,6 +63,7 @@ import tomllib
 root = pathlib.Path(sys.argv[1])
 tomllib.loads((root / "dotfiles/alacritty/.config/alacritty/alacritty.toml").read_text())
 tomllib.loads((root / "dotfiles/starship/.config/starship.toml").read_text())
+tomllib.loads((root / "dotfiles/wpaperd/.config/wpaperd/config.toml").read_text())
 json.loads((root / "dotfiles/waybar/.config/waybar/config.jsonc").read_text())
 print("TOML and JSON configs OK")
 PY
@@ -69,11 +78,6 @@ if command -v unshare >/dev/null && \
 else
   echo "nftables check skipped (user namespaces unavailable)"
 fi
-
-log "Regenerating wallpaper at test size"
-python3 "$tmp/repo/scripts/make-wallpaper.py" \
-  --width 320 --height 180 --output "$tmp/wall.png" >/dev/null
-[[ -s "$tmp/wall.png" ]] || fail "wallpaper was not generated"
 
 log "Checking shell syntax"
 bash -n "$tmp"/repo/bootstrap/*.sh "$tmp"/repo/scripts/*.sh "$tmp"/repo/post-install.sh

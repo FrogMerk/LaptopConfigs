@@ -1,0 +1,15 @@
+# wpaperd — rotate a local wallpaper collection every 30 minutes.
+# Add images to ~/Pictures/Wallpapers; subdirectories are included.
+# Manual control: wallpaper next | prev | pick | pause | resume
+
+[default]
+path = "~/Pictures/Wallpapers"
+duration = "30m"
+sorting = "random"
+mode = "center"
+recursive = true
+queue-size = 50
+initial-transition = true
+transition-time = 1200
+
+[default.transition.fade]

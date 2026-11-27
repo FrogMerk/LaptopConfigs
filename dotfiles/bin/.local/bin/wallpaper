@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+# Control the wpaperd wallpaper daemon.
+# Usage: wallpaper [next|prev|pause|resume|toggle|pick|set PATH|list|current]
+set -Eeuo pipefail
+
+wallpaper_dir="${WALLPAPER_DIR:-$HOME/Pictures/Wallpapers}"
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/wpaperd/wallpapers"
+
+usage() {
+  cat <<'EOF'
+Usage: wallpaper COMMAND
+
+  next           show the next wallpaper
+  prev           show the previous wallpaper
+  pause          pause automatic rotation
+  resume         resume automatic rotation
+  toggle         toggle automatic rotation
+  pick           choose a wallpaper with fuzzel
+  set PATH       show a specific image
+  list           list images in the wallpaper directory
+  current        print the current wallpaper path
+EOF
+}
+
+need_ctl() {
+  command -v wpaperctl >/dev/null 2>&1 || {
+    echo "wpaperctl not found. Install wpaperd: sudo pacman -S wpaperd" >&2
+    exit 1
+  }
+}
+
+notify() {
+  command -v notify-send >/dev/null 2>&1 &&
+    notify-send -a wallpaper "$1" "${2:-}" || true
+}
+
+current_path() {
+  local path
+  for path in "$state_dir"/*; do
+    [[ -L "$path" ]] && readlink -f "$path" && return 0
+  done
+  return 1
+}
+
+case "${1:-next}" in
+  next)
+    need_ctl
+    wpaperctl next
+    sleep 0.2
+    path="$(current_path || true)"
+    [[ -n "$path" ]] && notify "Wallpaper" "$(basename "$path")"
+    ;;
+  prev|previous)
+    need_ctl
+    wpaperctl previous
+    sleep 0.2
+    path="$(current_path || true)"
+    [[ -n "$path" ]] && notify "Wallpaper" "$(basename "$path")"
+    ;;
+  pause|resume|toggle|toggle-pause)
+    need_ctl
+    case "$1" in
+      toggle) wpaperctl toggle-pause ;;
+      *) wpaperctl "$1" ;;
+    esac
+    ;;
+  pick)
+    need_ctl
+    mapfile -t files < <(find "$wallpaper_dir" -type f \
+      \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \
+         -o -iname '*.webp' -o -iname '*.avif' \) \
+      -printf '%P\n' 2>/dev/null | sort)
+    if [[ ${#files[@]} -eq 0 ]]; then
+      notify "No wallpapers found" "$wallpaper_dir"
+      exit 1
+    fi
+    choice="$(printf '%s\n' "${files[@]}" |
+      fuzzel --dmenu --prompt "Wallpaper  " --lines 12 --width 60)" || exit 0
+    [[ -n "$choice" ]] || exit 0
+    wpaperctl set "$wallpaper_dir/$choice"
+    notify "Wallpaper" "$(basename "$choice")"
+    ;;
+  set)
+    need_ctl
+    [[ -n "${2:-}" && -f "$2" ]] || {
+      echo "Not a file: ${2:-}" >&2
+      exit 1
+    }
+    wpaperctl set "$2"
+    notify "Wallpaper" "$(basename "$2")"
+    ;;
+  list)
+    find "$wallpaper_dir" -type f \
+      \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \
+         -o -iname '*.webp' -o -iname '*.avif' \) \
+      -printf '%P\n' 2>/dev/null | sort
+    ;;
+  current)
+    current_path || {
+      echo "No wallpaper state found." >&2
+      exit 1
+    }
+    ;;
+  -h|--help|help)
+    usage
+    ;;
+  *)
+    usage >&2
+    exit 1
+    ;;
+esac

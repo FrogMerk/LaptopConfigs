@@ -4,6 +4,9 @@
 designed for long sessions. See the upstream palette:
 <https://github.com/sainnhe/everforest/blob/master/palette.md>.
 
+The setup has three layers: literal palettes in the app configs, a vendored
+Everforest GTK theme, and Papirus icons with green folders.
+
 ## Palette
 
 | Role | Hex | Used for |
@@ -36,20 +39,91 @@ designed for long sessions. See the upstream palette:
 
 | File | Notes |
 |---|---|
-| `dotfiles/niri/.config/niri/config.kdl` | background and focus ring |
-| `dotfiles/alacritty/.config/alacritty/alacritty.toml` | full terminal palette |
-| `dotfiles/waybar/.config/waybar/style.css` | bar and workspace colours |
-| `dotfiles/fuzzel/.config/fuzzel/fuzzel.ini` | launcher |
-| `dotfiles/mako/.config/mako/config` | notifications |
-| `dotfiles/swaylock/.config/swaylock/config` | lock screen |
+| `dotfiles/niri/.config/niri/config.kdl` | gaps, radius, focus ring, blur, overview, subtle animations |
+| `dotfiles/alacritty/.config/alacritty/alacritty.toml` | terminal palette, 0.85 opacity, keybinds |
+| `dotfiles/waybar/.config/waybar/config.jsonc` | modules and tooltips |
+| `dotfiles/waybar/.config/waybar/style.css` | bar, pills, states |
+| `dotfiles/fuzzel/.config/fuzzel/fuzzel.ini` | launcher, green selection, frosted background |
+| `dotfiles/mako/.config/mako/config` | notifications, grouping, urgency colours |
+| `dotfiles/swaylock/.config/swaylock/config` | lock indicator and colours |
 | `dotfiles/starship/.config/starship.toml` | prompt |
-| `dotfiles/gtk/.config/gtk-3.0/gtk.css` | GTK3 accents over Adwaita-dark |
-| `dotfiles/gtk/.config/gtk-4.0/gtk.css` | GTK4 / libadwaita accents |
-| `scripts/make-wallpaper.py` | generated wallpaper, no external assets |
+| `dotfiles/gtk/.themes/Everforest-Green-Dark-Medium/` | full GTK3 theme (vendored) |
+| `dotfiles/gtk/.config/gtk-4.0/` | same theme as a libadwaita override |
+| `dotfiles/gtk/.config/gtk-3.0/settings.ini` | GTK3 theme, icons, fonts, cursor |
+| `dotfiles/wpaperd/.config/wpaperd/config.toml` | wallpaper directory, interval, fade |
+| `dotfiles/bin/.local/bin/wallpaper` | picker and wpaperctl wrapper |
+| `scripts/apply-everforest-icons.sh` | green Papirus folder overlay |
+| `etc/greetd/config.toml` | tuigreet colour theme |
+
+## Surfaces and effects
+
+- **Bar:** opaque `bg0` with a `bg3` bottom border and 8 px pill modules.
+- **Terminal:** Alacritty at `0.85` opacity; niri blurs the wallpaper behind it.
+- **Launcher and notifications:** 90 % surfaces plus a niri layer blur.
+- **Notification icons:** disabled (`icons=0`). Mako 1.11 on this
+  gdk-pixbuf/glycin stack refuses the Papirus SVGs and draws a placeholder;
+  text-only is cleaner until the loader is fixed.
+- **Blur:** `blur {}` uses 3 passes and xray (rendered once per wallpaper), so
+  it is effectively free while idle.
+- **Animations:** 120–140 ms open/close easings and critically damped springs.
+  Idle power is unaffected; only the transition itself wakes the iGPU.
+
+## Full GTK theme
+
+The `Everforest-Green-Dark-Medium` folder is built from
+[Fausto-Korpsvart/Everforest-GTK-Theme](https://github.com/Fausto-Korpsvart/Everforest-GTK-Theme)
+at the commit recorded in its `SOURCE` file. It is vendored so `stow` can
+install it without a network build. It is GPL-3.0; the upstream `LICENSE` is in
+the theme directory.
+
+Rebuilding after an upstream update needs `sassc`:
+
+```bash
+git clone https://github.com/Fausto-Korpsvart/Everforest-GTK-Theme /tmp/everforest-gtk
+cd /tmp/everforest-gtk/themes
+./install.sh -t green -c dark -s standard --tweaks medium -d /tmp/theme-out
+# copy gtk-3.0 + index.theme into dotfiles/gtk/.themes/Everforest-Green-Dark-Medium
+# copy gtk-4.0 into dotfiles/gtk/.config/gtk-4.0
+```
+
+GTK4/libadwaita ignores `gtk-theme-name` for most widgets; the files in
+`~/.config/gtk-4.0` are the reliable override. GTK3 apps use the theme from
+`~/.themes`. `gsettings` is set by `post-install.sh` and should match
+`settings.ini`.
+
+## Icons and cursor
+
+- **Icons:** Papirus-Dark with Everforest-green folders. `make icons` builds a
+  small `~/.local/share/icons/Papirus-Everforest` overlay of symlinks; it
+  inherits Papirus-Dark and does not copy the icon set.
+- **Cursor:** Adwaita at 24 px. It is neutral and already present; a matching
+  Everforest cursor is not packaged.
+
+## Fonts
+
+- UI: **Noto Sans 11** (GTK and gsettings).
+- Monospace UI: **JetBrainsMono Nerd Font 10**.
+- Terminal: **JetBrainsMono Nerd Font 11.5**.
+- Waybar: **JetBrainsMono Nerd Font 13**.
+- Emoji: **Noto Color Emoji** (installed).
+
+## Wallpapers
+
+Wallpapers are user content and are not tracked. Put any PNG/JPEG/WebP/AVIF in
+`~/Pictures/Wallpapers`; `wpaperd` cycles them every 30 minutes with a 1.2 s
+fade. The active image is exposed through the state symlink used by
+`wallpaper current` and the lock screen. There is no generated wallpaper.
+
+## Qt
+
+No Qt applications are installed yet, so there is no Qt theme path. When the
+first Qt app lands, prefer `qt6ct` from `extra` and set
+`QT_QPA_PLATFORMTHEME=qt6ct`; keep `QT_QPA_PLATFORM=wayland` in niri's
+`environment {}`.
 
 ## Changing the palette
 
-Most apps take literal hex values, so a theme change is a search-and-replace
-across the files above. Keep this table and the wallpaper generator's constants
-in sync. If the accent changes, update `green` everywhere plus the GTK
-`accent_*` colours.
+Most apps take literal hex values, so a palette change is a search-and-replace
+across the files above. If the accent changes, update `green` everywhere plus
+the GTK `accent_*` colours and the vendored GTK theme (rebuild it). Waybar,
+fuzzel, mako, Alacritty and swaylock use the same literals as this table.

@@ -16,6 +16,26 @@ log "Applying dotfiles"
 
 mkdir -p "$HOME/Pictures/Screenshots" "$HOME/Pictures/Wallpapers"
 
+log "Building the green Papirus folder overlay"
+"$REPO_DIR/scripts/apply-everforest-icons.sh" >/dev/null ||
+  warn "Papirus-Dark not found; skipping the green folder overlay"
+
+if command -v gsettings >/dev/null 2>&1; then
+  log "Applying GTK settings"
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface gtk-theme 'Everforest-Green-Dark-Medium' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Everforest' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface cursor-size 24 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface font-name 'Noto Sans 11' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface document-font-name 'Noto Sans 11' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 10' 2>/dev/null || true
+fi
+
+if ! find "$HOME/Pictures/Wallpapers" -maxdepth 1 -type f 2>/dev/null | grep -q .; then
+  warn "Add wallpapers to ~/Pictures/Wallpapers; wpaperd cycles that directory."
+fi
+
 if command -v niri >/dev/null 2>&1; then
   log "Validating niri config"
   if ! niri validate; then

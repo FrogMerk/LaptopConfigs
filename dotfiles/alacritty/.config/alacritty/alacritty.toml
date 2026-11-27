@@ -2,13 +2,13 @@
 # Everforest Dark (medium)
 
 [window]
-padding = { x = 8, y = 8 }
+padding = { x = 10, y = 10 }
 dynamic_title = true
 decorations = "none"
 opacity = 0.85
 
 [font]
-size = 11.0
+size = 11.5
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
@@ -81,8 +81,23 @@ style = { shape = "Block", blinking = "Off" }
 unfocused_hollow = true
 
 [scrolling]
-history = 10000
+history = 50000
 multiplier = 3
+
+[selection]
+save_to_clipboard = true
+
+[terminal]
+osc52 = "CopyPaste"
+
+[keyboard]
+bindings = [
+  { key = "Equals", mods = "Control", action = "IncreaseFontSize" },
+  { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+  { key = "0", mods = "Control", action = "ResetFontSize" },
+  { key = "PageUp", mods = "Shift", action = "ScrollPageUp" },
+  { key = "PageDown", mods = "Shift", action = "ScrollPageDown" },
+]
 
 [mouse]
 hide_when_typing = true

@@ -16,14 +16,17 @@ make test
 
 - Arch + niri 26.04 on a ThinkPad T480: 1080p, Intel iGPU, no VRR
 - Everforest Dark (medium), 12 px gaps, 12 px window radius
-- Alacritty at 0.85 opacity; Zsh + Starship; Neovim installed, no config yet
-- Waybar: workspaces, window title, clock, tray, audio, network, both batteries
-- niri: six named workspaces, app routing, float rules, dropdown terminal,
-  clipboard history, screenshot helpers, `dock` helper
+- Full Everforest GTK theme, Papirus-Dark with green folders, Adwaita cursors
+- Alacritty at 0.85 opacity with niri background blur; Zsh + Starship
+- Waybar v2: workspaces, title, clock, media, idle inhibitor, updates, audio,
+  network, CPU, memory, temperature, both batteries, tray
+- `wpaperd` cycles user-supplied wallpapers with a fuzzel picker
+- niri: subtle transitions, overview effects, six named workspaces, app routing,
+  float rules, dropdown terminal, clipboard history, screenshot helpers, `dock`
 - nftables default-deny inbound; reflector, paccache and fwupd timers
 - Monthly maintenance report and user timer
-- `make validate`, `make test`, `make check`
-- Animations are intentionally off for battery life
+- `make validate`, `make test`, `make check`, `make icons`
+- Neovim is installed with no config yet
 - Commit signing is documented but not enabled
 - External-monitor layout is implemented but untested without hardware
 
@@ -31,36 +34,45 @@ make test
 
 ### High impact
 
-- [ ] Decide the animation policy: keep off, or add subtle open/close/workspace
-      transitions and measure idle power
-- [ ] Waybar v2: choose modules and layout, spacing, tooltips, opacity
-- [ ] Add useful Waybar modules: idle inhibitor, updates, media, CPU/memory,
-      temperature, keyboard layout
-- [ ] Generate a small wallpaper set and a way to rotate/choose it
-- [ ] GTK/Qt depth: Adwaita-dark + green accent vs an Everforest GTK theme
-- [ ] Qt theme path (`qt6ct` or environment variables)
-- [ ] Icon and cursor theme decision
-- [ ] Font pass: UI font, sizes, emoji, terminal weight
-- [ ] Alacritty polish: keybinds, scrollback, cursor, optional blur
-- [ ] Mako/fuzzel/swaylock polish: grouping, icons, timeouts, lock clock
+- [x] Animation policy: subtle 120–140 ms easings and damped springs. Idle
+      power is unaffected; only the transition itself wakes the iGPU
+- [x] Waybar v2: medium density, 34 px bar, 8 px pills, tooltips and state colours
+- [x] Useful Waybar modules: idle inhibitor, custom updates, media, CPU/memory,
+      temperature. Keyboard layout skipped (only `us` is configured)
+- [x] Wallpaper manager: `wpaperd` cycles `~/Pictures/Wallpapers`; `wallpaper
+      pick/next` controls it. Images are user-sourced, not generated
+- [x] GTK depth: full Everforest GTK theme (green/dark/medium), vendored for stow
+- [x] Qt theme path: deferred; no Qt apps are installed yet. Prefer `qt6ct` later
+- [x] Icon and cursor decision: Papirus-Dark with a green folder overlay;
+      Adwaita cursors at 24 px
+- [x] Font pass: Noto Sans 11 UI, JetBrainsMono NF 11.5 terminal, 13 Waybar,
+      Noto Color Emoji
+- [x] Alacritty polish: keybinds, 50k scrollback, selection clipboard, OSC 52,
+      wider padding, 0.85 opacity plus niri blur
+- [x] Mako/fuzzel/swaylock polish: grouping, urgent timeouts, green launcher
+      selection, caps/layout lock colours. Notification icons are off because
+      mako cannot load the Papirus SVGs on this stack; lock clock needs
+      `swaylock-effects` and is deferred
 
 ### Medium
 
-- [ ] Tune focus ring, border, shadow and tab indicator colours
-- [ ] Workspace-specific gaps or struts if the bar/layout needs it
-- [ ] Overview and workspace-switch visuals
+- [x] Tune focus ring, border, shadow and overview colours
+- [ ] Workspace-specific gaps or struts: not needed at this layout
+- [x] Overview and workspace-switch visuals: zoom, backdrop, shadow, springs
 - [ ] Firefox theme (`userChrome`/`userContent`) or a matching extension theme
-- [ ] Neovim colorscheme and statusline
-- [ ] Starship prompt refinement
-- [ ] tuigreet/greetd theme, or a graphical greeter decision
+- [ ] Neovim colorscheme and statusline (with the Neovim config below)
+- [x] Starship prompt refinement: reviewed; the minimal two-line prompt is kept
+- [x] tuigreet/greetd theme: Everforest colours and a short time format
 - [ ] Optional boot polish (systemd-boot menu, Plymouth)
 
 ### Experiments
 
-- [ ] niri window effects: blur, xray, noise, saturation (measure iGPU cost)
-- [ ] Spring animation parameters
-- [ ] Custom Waybar modules (clipboard, maintenance, updates)
-- [ ] Lock-screen blurred screenshot instead of solid colour
+- [x] niri window effects: blur with xray, noise 0.02 and saturation 1.2.
+      Xray renders blur once per wallpaper, so idle cost is negligible
+- [x] Spring animation parameters: tuned for short, non-bouncy movement
+- [x] Custom Waybar module: hourly `checkupdates` count, hidden when zero
+- [ ] Lock-screen blurred screenshot: the lock screen now shows the current
+      wallpaper; true blur needs `swaylock-effects` (AUR)
 - [ ] Layer-shell extras (notifications/control centre) if useful
 
 ## 2. Workflow and applications
@@ -121,24 +133,25 @@ make test
 - [ ] Keep `docs/THEME.md`, `docs/AUDIT.md` and this backlog current
 - [ ] Consider GitHub Issues/Projects for larger experiments
 - [ ] Dotfiles portability review (hardcoded paths, output names)
-- [ ] Decide whether to track a wallpaper image or keep it generated
+- [x] Decide whether to track a wallpaper image: no; user-sourced and managed by
+      `wpaperd`
 
-## Suggested first session
+## Suggested next session
 
-1. Pick the animation policy and test two or three variants; check idle power.
-2. Sketch Waybar v2 and decide which modules earn space on a 1080p bar.
-3. Generate three wallpaper variants in the Everforest palette.
-4. Choose the GTK/Qt theming path (accent-only vs full Everforest theme).
-5. Start the Neovim config with the Everforest colorscheme and LSP.
-6. Install the first CLI batch (`eza`, `zoxide`, `fzf`, `btop`, `lazygit`).
-7. Add annotated screenshots (`swappy` or `satty`).
+The look-and-feel pass is complete. Next up:
+
+1. Start the Neovim config with the Everforest colorscheme, LSP and statusline.
+2. Install the first CLI batch (`eza`, `zoxide`, `fzf`, `btop`, `lazygit`).
+3. Add annotated screenshots (`swappy` or `satty`).
+4. Add a Firefox `userChrome`/`userContent` Everforest theme.
+5. Decide on `swaylock-effects` for a blurred lock screen.
+6. Test the external-monitor profile when hardware is available.
 
 ## Open questions
 
-- How much animation is worth the battery cost?
-- Waybar: minimal or information-dense?
-- GTK theme: full Everforest theme or accent-only Adwaita?
 - Neovim: hand-rolled config or a distro?
+- Firefox: how much chrome should the theme repaint?
+- Lock screen: keep the current wallpaper or add `swaylock-effects` blur?
 - AUR helper: `paru` or `yay`?
 - Backups: local external disk, remote, or both?
 - Commit signing: SSH key or a dedicated GPG key?

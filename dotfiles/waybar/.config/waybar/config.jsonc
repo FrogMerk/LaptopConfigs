@@ -1,31 +1,68 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 30,
-  "spacing": 6,
+  "height": 34,
+  "spacing": 8,
   "modules-left": ["niri/workspaces", "niri/window"],
   "modules-center": ["clock"],
-  "modules-right": ["tray", "pulseaudio", "network", "battery#bat0", "battery#bat1"],
+  "modules-right": [
+    "mpris",
+    "idle_inhibitor",
+    "custom/updates",
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery#bat0",
+    "battery#bat1",
+    "tray"
+  ],
 
   "niri/workspaces": {
     "format": "{name}",
     "active-only": false,
-    "all-outputs": true
+    "all-outputs": true,
+    "display-condition": "keep-named",
+    "enable-bar-scroll": true
   },
 
   "niri/window": {
     "format": "{title}",
-    "max-length": 60
+    "max-length": 50
   },
 
   "clock": {
     "format": "{:%H:%M}",
-    "tooltip-format": "{:%A, %d %B %Y}"
+    "tooltip-format": "<tt>{:%A, %d %B %Y}</tt>"
   },
 
-  "tray": {
-    "icon-size": 16,
-    "spacing": 8
+  "mpris": {
+    "format": "󰎆 {dynamic}",
+    "format-paused": "󰏤 {dynamic}",
+    "tooltip-format": "{player} — {title}\n{artist}",
+    "dynamic-len": 42,
+    "title-len": 30,
+    "artist-len": 24,
+    "hide-on-paused": true,
+    "on-click": "playerctl play-pause",
+    "on-click-middle": "playerctl previous",
+    "on-click-right": "playerctl next"
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": ["󰅶", "󰒲"],
+    "tooltip-format-activated": "Idle inhibited",
+    "tooltip-format-deactivated": "Idle enabled"
+  },
+
+  "custom/updates": {
+    "exec": "n=$(checkupdates 2>/dev/null | wc -l); [ \"$n\" -gt 0 ] && printf '%s' \"$n\"",
+    "interval": 3600,
+    "format": "󰚰 {text}",
+    "hide-empty-text": true,
+    "on-click": "alacritty -e bash -lc 'checkupdates; read -rp \"Press enter to close\"'"
   },
 
   "pulseaudio": {
@@ -40,8 +77,33 @@
     "format-wifi": "󰤨 {essid}",
     "format-ethernet": "󰈀 ethernet",
     "format-disconnected": "󰤭 offline",
-    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname}",
+    "tooltip-format-ethernet": "{ifname}",
+    "tooltip-format-disconnected": "Disconnected",
     "on-click": "alacritty -e nmtui"
+  },
+
+  "cpu": {
+    "interval": 5,
+    "format": "󰻠 {usage}%",
+    "states": { "warning": 70, "critical": 90 }
+  },
+
+  "memory": {
+    "interval": 10,
+    "format": "󰍛 {percentage}%",
+    "states": { "warning": 75, "critical": 90 },
+    "tooltip-format": "{used:0.1f} GiB / {total:0.1f} GiB used"
+  },
+
+  "temperature": {
+    "hwmon-by-name": "coretemp",
+    "input-filename": "temp1_input",
+    "interval": 10,
+    "format": "󰔏 {temperatureC}°",
+    "warning-threshold": 75,
+    "critical-threshold": 90,
+    "tooltip": false
   },
 
   "battery#bat0": {
@@ -51,7 +113,7 @@
     "format-charging": "󰂄 {capacity}%",
     "format-plugged": "󰂄 {capacity}%",
     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-    "tooltip-format": "BAT0: {timeTo} at {capacity}%"
+    "tooltip-format": "BAT0 · {capacity}% ({health}% health)\n{time} remaining · {power} W"
   },
 
   "battery#bat1": {
@@ -61,7 +123,12 @@
     "format-charging": "󰂄 {capacity}%",
     "format-plugged": "󰂄 {capacity}%",
     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-    "tooltip-format": "BAT1: {timeTo} at {capacity}%"
+    "tooltip-format": "BAT1 · {capacity}% ({health}% health)\n{time} remaining · {power} W"
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
   },
 
   "reload_style_on_change": true

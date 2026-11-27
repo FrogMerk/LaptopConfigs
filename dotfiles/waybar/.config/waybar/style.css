@@ -1,4 +1,4 @@
-/* Everforest Dark (medium) */
+/* Everforest Dark (medium) — Waybar v2 */
 
 * {
   font-family: "JetBrainsMono Nerd Font";
@@ -18,15 +18,44 @@ window#waybar {
 .modules-left,
 .modules-center,
 .modules-right {
-  padding: 0 8px;
+  padding: 0 10px;
+}
+
+#workspaces button,
+#mpris,
+#idle_inhibitor,
+#custom-updates,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#temperature,
+#battery {
+  margin: 5px 2px;
+  padding: 0 9px;
+  border-radius: 8px;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+#workspaces button:hover,
+#mpris:hover,
+#idle_inhibitor:hover,
+#custom-updates:hover,
+#pulseaudio:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#battery:hover {
+  background: #343F44;
 }
 
 #workspaces button {
-  padding: 0 9px;
+  padding: 0 10px;
   margin: 4px 2px;
   color: #859289;
   background: transparent;
-  border-radius: 6px;
+  border-radius: 7px;
 }
 
 #workspaces button:hover {
@@ -35,32 +64,90 @@ window#waybar {
 }
 
 #workspaces button.active {
-  color: #2D353B;
+  color: #232A2E;
   background: #A7C080;
+  font-weight: 600;
 }
 
 #workspaces button.urgent {
-  color: #2D353B;
+  color: #232A2E;
   background: #E67E80;
 }
 
 #window {
   color: #9DA9A0;
-  padding: 0 10px;
-}
-
-#clock,
-#tray,
-#pulseaudio,
-#network,
-#battery {
-  padding: 0 9px;
-  color: #D3C6AA;
+  padding: 0 12px;
 }
 
 #clock {
   color: #A7C080;
   font-weight: 600;
+  padding: 0 12px;
+}
+
+#mpris {
+  color: #7FBBB3;
+}
+
+#mpris.paused {
+  color: #7A8478;
+}
+
+#idle_inhibitor {
+  color: #7A8478;
+}
+
+#idle_inhibitor.activated {
+  color: #A7C080;
+  background: #343F44;
+}
+
+#custom-updates {
+  color: #DBBC7F;
+}
+
+#pulseaudio {
+  color: #D3C6AA;
+}
+
+#pulseaudio.muted {
+  color: #7A8478;
+}
+
+#network {
+  color: #83C092;
+}
+
+#network.disconnected {
+  color: #E67E80;
+}
+
+#cpu {
+  color: #E69875;
+}
+
+#memory {
+  color: #D699B6;
+}
+
+#temperature {
+  color: #D3C6AA;
+}
+
+#cpu.warning,
+#memory.warning,
+#temperature.warning {
+  color: #DBBC7F;
+}
+
+#cpu.critical,
+#memory.critical,
+#temperature.critical {
+  color: #E67E80;
+}
+
+#battery {
+  color: #D3C6AA;
 }
 
 #battery.charging,
@@ -76,20 +163,17 @@ window#waybar {
   color: #E67E80;
 }
 
-#pulseaudio.muted {
-  color: #7A8478;
-}
-
-#network.disconnected {
-  color: #E67E80;
+#tray {
+  padding: 0 6px;
 }
 
 tooltip {
   background: #343F44;
   border: 1px solid #475258;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 tooltip label {
   color: #D3C6AA;
+  font-size: 12px;
 }

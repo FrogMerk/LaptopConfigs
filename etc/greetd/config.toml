@@ -2,5 +2,5 @@
 vt = 1
 
 [default_session]
-command = "tuigreet --time --remember --cmd niri-session"
+command = "tuigreet --time --time-format '%H:%M' --greeting 'Welcome back' --remember --cmd niri-session --theme 'border=green;title=green;text=white;time=green;container=black;greet=yellow;prompt=green;input=white;action=blue;button=yellow'"
 user = "greeter"
