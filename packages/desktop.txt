@@ -1,6 +1,9 @@
 # Desktop stack installed by pacstrap.
 niri
 xwayland-satellite
+alacritty
+waybar
+swaybg
 greetd
 greetd-tuigreet
 pipewire
@@ -24,6 +27,12 @@ polkit-gnome
 noto-fonts
 noto-fonts-emoji
 ttf-jetbrains-mono-nerd
+papirus-icon-theme
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
+zsh-completions
+starship
 wl-clipboard
 yazi
 zram-generator

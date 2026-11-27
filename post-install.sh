@@ -14,7 +14,7 @@ warn() { printf '\033[1;33m[!]\033[0m %s\n' "$*" >&2; }
 log "Applying dotfiles"
 "$REPO_DIR/scripts/apply-dotfiles.sh"
 
-mkdir -p "$HOME/Pictures/Screenshots"
+mkdir -p "$HOME/Pictures/Screenshots" "$HOME/Pictures/Wallpapers"
 
 if command -v niri >/dev/null 2>&1; then
   log "Validating niri config"

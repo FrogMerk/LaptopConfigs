@@ -1,0 +1,88 @@
+# ~/.config/alacritty/alacritty.toml
+# Everforest Dark (medium)
+
+[window]
+padding = { x = 8, y = 8 }
+dynamic_title = true
+decorations = "none"
+opacity = 0.95
+
+[font]
+size = 11.0
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+[colors.primary]
+background = "#2D353B"
+foreground = "#D3C6AA"
+dim_foreground = "#859289"
+bright_foreground = "#D3C6AA"
+
+[colors.cursor]
+text = "#2D353B"
+cursor = "#A7C080"
+
+[colors.vi_mode_cursor]
+text = "#2D353B"
+cursor = "#7FBBB3"
+
+[colors.search.matches]
+foreground = "#2D353B"
+background = "#DBBC7F"
+
+[colors.search.focused_match]
+foreground = "#2D353B"
+background = "#A7C080"
+
+[colors.footer_bar]
+foreground = "#2D353B"
+background = "#D3C6AA"
+
+[colors.selection]
+text = "CellForeground"
+background = "#475258"
+
+[colors.normal]
+black = "#475258"
+red = "#E67E80"
+green = "#A7C080"
+yellow = "#DBBC7F"
+blue = "#7FBBB3"
+magenta = "#D699B6"
+cyan = "#83C092"
+white = "#D3C6AA"
+
+[colors.bright]
+black = "#7A8478"
+red = "#E67E80"
+green = "#A7C080"
+yellow = "#DBBC7F"
+blue = "#7FBBB3"
+magenta = "#D699B6"
+cyan = "#83C092"
+white = "#D3C6AA"
+
+[cursor]
+style = { shape = "Block", blinking = "Off" }
+unfocused_hollow = true
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[mouse]
+hide_when_typing = true

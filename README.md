@@ -9,6 +9,8 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - Vanilla Arch base, no meta-distro layer
 - niri scrollable tiling with native touchpad gestures
 - greetd + tuigreet login, starting `niri-session`
+- Alacritty + Zsh + Starship, themed with Everforest Dark
+- Waybar, mako, fuzzel, swaylock and swaybg
 - PipeWire, NetworkManager, BlueZ
 - TLP + thermald + zram + ThinkPad charge thresholds
 - `linux` and `linux-lts` boot entries
@@ -80,12 +82,23 @@ cd ~/LaptopConfigs
 
 `post-install.sh` backs up any config niri generated on first launch, then stows the dotfiles. Re-save or re-login after config changes; niri hot-reloads on save.
 
+Set Zsh as the login shell once, then log out and back in:
+
+```bash
+chsh -s /usr/bin/zsh
+```
+
+On an existing install, `sudo ./scripts/install-baseline.sh` installs any
+missing desktop packages and sets the login shell in one step.
+
 ## Keybinds
 
 | Key | Action |
 |---|---|
-| `Mod+T` / `Mod+Return` | terminal (foot) |
+| `Mod+T` / `Mod+Return` | terminal (Alacritty) |
+| `Mod+Shift+Return` | fallback terminal (foot) |
 | `Mod+D` | launcher (fuzzel) |
+| `Mod+E` | file manager (Nautilus) |
 | `Mod+Q` | close window |
 | `Mod+H/J/K/L` or arrows | focus |
 | `Mod+Shift+H/J/K/L` | move column/window |
@@ -104,13 +117,24 @@ cd ~/LaptopConfigs
 | `Mod+Print` / `Mod+S` | interactive screenshot (clipboard + disk) |
 | `Mod+Shift+Print` / `Mod+Shift+S` | full-screen screenshot |
 | `Mod+Shift+E` | quit niri |
+| media keys | playerctl play/pause, next, previous |
 
 Touchpad gestures are niri's defaults: horizontal scroll pans the column view, swipes switch workspaces. Tune `input.touchpad` in `dotfiles/niri/.config/niri/config.kdl`.
+
+## Theming
+
+Everforest Dark (medium contrast) is applied across niri, Alacritty, foot, Waybar, fuzzel, mako, swaylock, Starship and GTK accents. See `docs/THEME.md` for the palette and the file map.
+
+Regenerate the wallpaper (stdlib only, no external assets):
+
+```bash
+./scripts/make-wallpaper.py
+```
 
 ## T480 notes
 
 - Confirm S3 suspend: `cat /sys/power/mem_sleep` should show `[deep]`. If it shows `s2idle`, set the BIOS sleep state to **Linux**.
-- Update Thunderbolt firmware: `fwupdmgr get-updates && sudo fwupdmgr update`. T480 units have a known Thunderbolt controller bug.
+- Update Thunderbolt firmware: `fwupdmgr get-updates && sudo fwupdmgr update`. T480 units have a known Thunderbolt controller bug. fwupd may offer an embedded-controller update that is Windows-only; leave it alone on Linux.
 - Charge thresholds are set to 80% in `etc/tlp.d/10-t480.conf`; verify with `sudo tlp-stat -b`.
 - **Never install `power-profiles-daemon` alongside TLP.**
 - Expected idle: roughly 5–7 W at low brightness. That is about 9–13 h on the 24 Wh + 72 Wh dual battery, or 4–5 h on the internal battery alone.
@@ -146,20 +170,33 @@ sudo pacman -Syu
 │   ├── desktop.txt
 │   └── extras.txt
 ├── dotfiles/
-│   ├── niri/.config/niri/config.kdl
+│   ├── alacritty/.config/alacritty/alacritty.toml
 │   ├── foot/.config/foot/foot.ini
 │   ├── fuzzel/.config/fuzzel/fuzzel.ini
-│   └── mako/.config/mako/config
+│   ├── gtk/.config/gtk-3.0/settings.ini
+│   ├── gtk/.config/gtk-3.0/gtk.css
+│   ├── gtk/.config/gtk-4.0/settings.ini
+│   ├── gtk/.config/gtk-4.0/gtk.css
+│   ├── mako/.config/mako/config
+│   ├── niri/.config/niri/config.kdl
+│   ├── starship/.config/starship.toml
+│   ├── swaylock/.config/swaylock/config
+│   ├── waybar/.config/waybar/config.jsonc
+│   ├── waybar/.config/waybar/style.css
+│   └── zsh/.zshrc
 ├── etc/
 │   ├── greetd/config.toml
 │   ├── tlp.d/10-t480.conf
 │   ├── systemd/zram-generator.conf
 │   └── sysctl.d/99-zram.conf
 ├── docs/
-│   └── ROADMAP.md
+│   ├── ROADMAP.md
+│   └── THEME.md
 ├── scripts/
 │   ├── apply-dotfiles.sh
-│   └── install-extras.sh
+│   ├── install-baseline.sh
+│   ├── install-extras.sh
+│   └── make-wallpaper.py
 └── post-install.sh
 ```
 
@@ -167,6 +204,8 @@ sudo pacman -Syu
 
 - **greetd loop or black screen:** `systemctl status greetd`, then `journalctl -u greetd`. Verify `/etc/greetd/config.toml` runs `tuigreet --cmd niri-session`.
 - **niri won't start after editing config:** run `niri validate`. A bad config at startup prevents the session; live reload keeps the last working state.
+- **Waybar missing or empty:** run `waybar` from a terminal and read the error; check `~/.config/waybar/config.jsonc`. niri hot-reloads binds, but `spawn-at-startup` only runs on login.
+- **No wallpaper:** confirm `swaybg` is installed and `~/Pictures/Wallpapers/everforest-forest.png` exists; regenerate with `./scripts/make-wallpaper.py`.
 - **No audio:** `systemctl --user status pipewire wireplumber`.
 - **Wi-Fi not connecting:** `nmcli device wifi list`, then `nmtui`.
 - **Boot entry missing:** from the live ISO, mount the ESP and run `bootctl --esp-path=/mnt/boot install`, then recreate the loader entries.

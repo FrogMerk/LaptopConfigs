@@ -35,7 +35,7 @@ output "eDP-1" {
 layout {
     gaps 8
     center-focused-column "never"
-    background-color "#1e1e2e"
+    background-color "#2d353b"
 
     preset-column-widths {
         proportion 0.33333
@@ -46,8 +46,8 @@ layout {
 
     focus-ring {
         width 2
-        active-color "#89b4fa"
-        inactive-color "#505050"
+        active-color "#a7c080"
+        inactive-color "#475258"
     }
 
     border {
@@ -77,6 +77,8 @@ environment {
 
 spawn-at-startup "mako"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+spawn-at-startup "waybar"
+spawn-at-startup "sh" "-c" "swaybg -i $HOME/Pictures/Wallpapers/everforest-forest.png -m fill"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "timeout" "360" "niri msg action power-off-monitors" "before-sleep" "swaylock -f"
 
 hotkey-overlay {
@@ -85,9 +87,11 @@ hotkey-overlay {
 
 binds {
     // Applications
-    Mod+T { spawn "foot"; }
-    Mod+Return { spawn "foot"; }
+    Mod+T { spawn "alacritty"; }
+    Mod+Return { spawn "alacritty"; }
+    Mod+Shift+Return { spawn "foot"; }
     Mod+D { spawn "fuzzel"; }
+    Mod+E { spawn "nautilus"; }
     Mod+Q repeat=false { close-window; }
 
     // Focus
@@ -167,4 +171,7 @@ binds {
     XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
+    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
 }

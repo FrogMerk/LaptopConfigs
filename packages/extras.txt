@@ -6,7 +6,6 @@ grim
 slurp
 playerctl
 udiskie
-waybar
 ripgrep
 fd
 bat
@@ -16,3 +15,4 @@ openssh
 gnupg
 fwupd
 xdg-desktop-portal-gnome
+opencode

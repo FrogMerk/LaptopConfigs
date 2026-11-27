@@ -1,0 +1,37 @@
+# Everforest Dark (medium)
+
+color=2D353B
+inside-color=2D353B
+inside-clear-color=2D353B
+inside-ver-color=2D353B
+inside-wrong-color=2D353B
+
+ring-color=A7C080
+ring-clear-color=859289
+ring-ver-color=A7C080
+ring-wrong-color=E67E80
+
+line-color=475258
+line-clear-color=475258
+line-ver-color=475258
+line-wrong-color=475258
+
+separator-color=475258
+
+text-color=D3C6AA
+text-clear-color=D3C6AA
+text-ver-color=D3C6AA
+text-wrong-color=E67E80
+
+key-hl-color=A7C080
+bs-hl-color=E67E80
+caps-lock-key-hl-color=DBBC7F
+caps-lock-bs-hl-color=E67E80
+
+font=JetBrainsMono Nerd Font
+font-size=24
+indicator-radius=120
+indicator-thickness=8
+indicator-idle-visible
+show-failed-attempts
+show-keyboard-layout

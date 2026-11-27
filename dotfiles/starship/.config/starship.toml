@@ -1,0 +1,37 @@
+# Everforest Dark (medium)
+
+add_newline = true
+format = "$directory$git_branch$git_status$cmd_duration$line_break$character"
+
+[character]
+success_symbol = "[❯](bold #A7C080)"
+error_symbol = "[❯](bold #E67E80)"
+vimcmd_symbol = "[❮](bold #7FBBB3)"
+
+[directory]
+style = "bold #DBBC7F"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+style = "#A7C080"
+symbol = " "
+
+[git_status]
+style = "#E67E80"
+
+[cmd_duration]
+style = "#859289"
+min_time = 2000
+format = "took [$duration]($style) "
+
+[username]
+show_always = false
+style_user = "#A7C080"
+style_root = "#E67E80"
+format = "[$user]($style) "
+
+[hostname]
+ssh_only = true
+style = "#83C092"
+format = "at [$hostname]($style) "
