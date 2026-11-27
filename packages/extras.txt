@@ -13,6 +13,7 @@ man-db
 bash-completion
 openssh
 gnupg
+fakeroot
 fwupd
 xdg-desktop-portal-gnome
 opencode

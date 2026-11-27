@@ -60,6 +60,8 @@ systemctl enable tlp.service
 systemctl enable thermald.service
 systemctl enable bluetooth.service
 systemctl enable fstrim.timer
+systemctl enable paccache.timer
+systemctl enable fwupd-refresh.timer 2>/dev/null || true
 systemctl enable systemd-timesyncd.service
 systemctl enable systemd-boot-update.service 2>/dev/null || true
 
@@ -78,6 +80,9 @@ if [[ -f "$NIRI_CONF" ]]; then
 fi
 
 # --- bootloader -------------------------------------------------------------
+# systemd-boot warns when the ESP is world-readable.
+sed -i 's/fmask=0022,dmask=0022/fmask=0077,dmask=0077/' /etc/fstab
+
 [[ -d /sys/firmware/efi ]] || die "EFI variables not visible. Run bootctl from the live ISO instead."
 findmnt -n /boot >/dev/null || die "/boot is not a mountpoint; mount the ESP first."
 

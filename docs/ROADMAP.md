@@ -61,14 +61,19 @@ Status: 2026-11-27
 
 ## 3 — System
 
-- [ ] Reconcile package manifests with the installed set
-- [ ] Decide whether to keep `xdg-desktop-portal-gnome` + Nautilus
-- [ ] Service audit: reflector, paccache, fwupd, fstrim
-- [ ] Firewall decision
+Audit snapshot and findings: `docs/AUDIT.md`.
+
+- [x] Reconcile package manifests with the installed set (no drift)
+- [x] Decide on `xdg-desktop-portal-gnome` + Nautilus (keep both)
+- [x] Service audit: no failed units; timers need enabling
+- [x] Verify TLP, zram, suspend and charge thresholds
+- [x] Firmware / EC update note (EC is Windows-only)
+- [ ] Run `sudo ./scripts/apply-system-fixes.sh` (ESP permissions, paccache/fwupd timers, fakeroot)
+- [ ] Firewall decision (`nftables` default-deny input)
+- [ ] Reflector country + timer decision
 - [ ] Backup and restore test for `LaptopConfigs`
-- [ ] Firmware / EC update note
-- [ ] Verify TLP, zram, suspend and charge thresholds after updates
 - [ ] Secrets handling (SSH, GPG, credentials)
+- [ ] Establish a monthly update/maintenance cadence
 
 ## 4 — Workflow
 
@@ -81,6 +86,7 @@ Status: 2026-11-27
 
 ## Next up
 
-1. Commit and push the named-workspace baseline.
-2. Move on to the system/package audit.
-3. Later: external-monitor profile and idle/gesture tuning.
+1. Run `sudo ./scripts/apply-system-fixes.sh` to harden the ESP and enable
+   maintenance timers.
+2. Decide on the firewall and reflector timer.
+3. Then external-monitor profile and idle/gesture tuning.

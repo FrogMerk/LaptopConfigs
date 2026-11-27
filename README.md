@@ -211,10 +211,12 @@ sudo pacman -Syu
 │   ├── systemd/zram-generator.conf
 │   └── sysctl.d/99-zram.conf
 ├── docs/
+│   ├── AUDIT.md
 │   ├── ROADMAP.md
 │   └── THEME.md
 ├── scripts/
 │   ├── apply-dotfiles.sh
+│   ├── apply-system-fixes.sh
 │   ├── install-baseline.sh
 │   ├── install-extras.sh
 │   └── make-wallpaper.py
