@@ -1,0 +1,79 @@
+/* Everforest lock screen: frosted wallpaper, centered password box. */
+
+window {
+  background-color: #232A2E;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #D3C6AA;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+}
+
+#window-box {
+  background-color: rgba(45, 53, 59, 0.82);
+  border: 2px solid #A7C080;
+  border-radius: 14px;
+  padding: 28px 36px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+#clock-label {
+  color: #A7C080;
+  font-size: 56px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+#date-label {
+  color: #859289;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+#input-label {
+  color: #D3C6AA;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+entry {
+  background-color: rgba(35, 42, 46, 0.92);
+  color: #D3C6AA;
+  border: 1px solid #475258;
+  border-radius: 8px;
+  padding: 10px 12px;
+  caret-color: #A7C080;
+}
+
+entry:focus {
+  border-color: #A7C080;
+  box-shadow: 0 0 0 2px rgba(167, 192, 128, 0.25);
+}
+
+button {
+  background-color: #A7C080;
+  color: #232A2E;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #B8CF93;
+}
+
+button:active {
+  background-color: #96B072;
+}
+
+#unlock-button {
+  margin-left: 8px;
+}
+
+#error-label {
+  color: #E67E80;
+  font-size: 13px;
+  margin-top: 8px;
+}

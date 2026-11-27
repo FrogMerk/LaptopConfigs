@@ -19,6 +19,7 @@ fuzzel
 mako
 swayidle
 swaylock
+gtklock
 xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-utils

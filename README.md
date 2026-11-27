@@ -10,9 +10,9 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - niri scrollable tiling with native touchpad gestures
 - greetd + tuigreet login, starting `niri-session`
 - Alacritty + Zsh + Starship, themed with Everforest Dark
-- Waybar, mako, fuzzel, swaylock and wpaperd
+- Waybar, mako, fuzzel, gtklock and wpaperd
 - Clipboard history (cliphist) and removable-drive automount (udiskie)
-- Neovim, xdg default-app associations and personal helper scripts
+- micro, xdg default-app associations and personal helper scripts
 - Monthly maintenance timer and a one-command restore test
 - nftables default-deny inbound firewall
 - Weekly reflector mirror refresh (Australia, HTTPS)
@@ -123,7 +123,7 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+Alt+W` | next wallpaper |
 | `Mod+Space` | focus floating/tiling |
 | `Mod+O` | overview |
-| `Super+Alt+L` | lock |
+| `Super+Alt+L` | lock (gtklock) |
 | `Mod+Escape` | toggle keyboard-shortcut inhibitor |
 | `Mod+Print` / `Mod+S` | interactive screenshot (niri UI, saves to disk) |
 | `Mod+Shift+Print` / `Mod+Shift+S` | full-screen screenshot |
@@ -134,7 +134,7 @@ missing desktop packages and sets the login shell in one step.
 
 `udiskie` runs at login, automounts removable drives and shows a Waybar tray icon. Clipboard history uses `cliphist` + fuzzel and is installed by the baseline script.
 
-Idle policy: lock after 5 minutes, display off after 6 minutes, suspend after 20 minutes. Lock is `swayidle` → `lock-screen` (swaylock with the current wallpaper); suspend is skipped when an app holds an idle inhibitor.
+Idle policy: lock after 5 minutes, display off after 6 minutes, suspend after 20 minutes. Lock is `swayidle` → `lock-screen` (gtklock with a frosted copy of the current wallpaper and an Everforest password box); suspend is skipped when an app holds an idle inhibitor.
 
 Touchpad gestures are niri's defaults: horizontal scroll pans the column view, swipes switch workspaces. Tune `input.touchpad` in `dotfiles/niri/.config/niri/config.kdl`.
 
@@ -154,7 +154,7 @@ Waybar shows the workspace names. Apps route automatically: Firefox to `web`, Na
 
 ## Defaults
 
-- Editor: Neovim (`EDITOR=nvim`, `vim` aliased to `nvim`)
+- Editor: micro (`EDITOR=micro`, non-modal terminal editor)
 - Browser: Firefox
 - Files: Nautilus
 - Images: imv
@@ -291,6 +291,7 @@ left.
 │   ├── gtk/.config/gtk-3.0/settings.ini
 │   ├── gtk/.config/gtk-4.0/ (Everforest libadwaita override)
 │   ├── gtk/.themes/Everforest-Green-Dark-Medium/
+│   ├── gtklock/.config/gtklock/
 │   ├── mako/.config/mako/config
 │   ├── niri/.config/niri/config.kdl
 │   ├── starship/.config/starship.toml

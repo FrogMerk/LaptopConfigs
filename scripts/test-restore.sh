@@ -36,6 +36,7 @@ links=(
   .config/systemd/user/maintenance-check.timer
   .config/systemd/user/wpaperd.service
   .config/wpaperd
+  .config/gtklock
   .themes/Everforest-Green-Dark-Medium
   .zshrc
   .local/bin/screenshot-region

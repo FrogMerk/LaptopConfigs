@@ -54,10 +54,12 @@ export PATH="$HOME/.local/bin:$PATH"
 export PAGER=less
 export LESS='-R'
 
-if command -v nvim >/dev/null 2>&1; then
-  export EDITOR=nvim
-  export VISUAL=nvim
-  alias vim='nvim'
+if command -v micro >/dev/null 2>&1; then
+  export EDITOR=micro
+  export VISUAL=micro
+elif command -v nano >/dev/null 2>&1; then
+  export EDITOR=nano
+  export VISUAL=nano
 fi
 
 # --- aliases ----------------------------------------------------------------

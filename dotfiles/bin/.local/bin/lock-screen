@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Lock the session, using the current wallpaper when wpaperd is running.
+# Lock the session with a frosted version of the current wallpaper.
 set -Eeuo pipefail
 
 state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/wpaperd/wallpapers"
@@ -12,8 +12,32 @@ for path in "$state_dir"/*; do
   fi
 done
 
+# Pre-blur the wallpaper for the frosted-glass background. gtklock has no
+# native blur; doing it once here is cheap and keeps the locker simple.
+blurred="$image"
+if [[ -n "$image" && -f "$image" ]] && command -v ffmpeg >/dev/null 2>&1; then
+  cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/gtklock"
+  mkdir -p "$cache_dir"
+  out="$cache_dir/background.png"
+  if ffmpeg -y -loglevel error -i "$image" \
+    -vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,scale=480:270,gblur=sigma=8,scale=1920:1080:flags=bicubic,eq=brightness=-0.02:saturation=0.9" \
+    -frames:v 1 "$out" 2>/dev/null; then
+    blurred="$out"
+  fi
+fi
+
+if command -v gtklock >/dev/null 2>&1; then
+  args=()
+  style="$HOME/.config/gtklock/style.css"
+  [[ -f "$style" ]] && args+=(-s "$style")
+  [[ -n "$blurred" && -f "$blurred" ]] && args+=(-b "$blurred")
+  if gtklock "${args[@]}"; then
+    exit 0
+  fi
+fi
+
+# Fallback for systems without gtklock.
 if [[ -n "$image" && -f "$image" ]]; then
   exec swaylock -f -i "$image" -s fill
 fi
-
 exec swaylock -f

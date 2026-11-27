@@ -2,6 +2,7 @@
 firefox
 imv
 mpv
+ffmpeg
 grim
 slurp
 playerctl
@@ -10,7 +11,7 @@ ripgrep
 fd
 bat
 make
-neovim
+micro
 man-db
 bash-completion
 openssh

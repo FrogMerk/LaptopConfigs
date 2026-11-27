@@ -29,7 +29,7 @@ Status: 2026-11-27
 
 - [x] Apply Everforest to niri, fuzzel, mako, Alacritty
 - [x] Waybar config and stylesheet
-- [x] Swaylock config
+- [x] Lock screen: gtklock with a frosted wallpaper and password field
 - [x] Starship prompt and Zsh config
 - [x] GTK theme: full Everforest green/dark/medium plus green Papirus folders
 - [x] Install `zsh`, `starship`, `wpaperd`, `papirus-icon-theme`
@@ -78,7 +78,7 @@ Audit snapshot and findings: `docs/AUDIT.md`.
 ## 4 — Workflow
 
 - [x] Refine Zsh aliases, plugins and completion behaviour
-- [x] Editor choice: Neovim (`EDITOR=nvim`, `vim` aliased)
+- [x] Editor choice: micro (`EDITOR=micro`; Neovim removed)
 - [x] Default applications via `xdg-mime` (`mimeapps.list`)
 - [x] SSH / GPG setup: SSH auth configured; signing options documented
 - [x] Personal scripts in `~/.local/bin` (screenshots, clipboard, lock, dock)
@@ -91,12 +91,11 @@ See `docs/EXPANSION.md` for the full backlog.
 - [x] Animation and visual polish pass
 - [x] Waybar v2 and wallpaper manager
 - [x] GTK/icon/cursor theme depth (Qt deferred until needed)
-- [ ] Neovim configuration and shell upgrades
+- [ ] Editor and shell upgrades
 - [ ] Backups, signing, AUR tooling and daily-workflow extras
 
 ## Next up
 
 The look-and-feel pass is complete. The next phase is logged in
-`docs/EXPANSION.md`: Neovim, the CLI batch, annotated screenshots, a Firefox
-theme and backups. Start a fresh session with `git pull`, `make validate`,
-`make test`.
+`docs/EXPANSION.md`: the CLI batch, annotated screenshots, a Firefox theme and
+backups. Start a fresh session with `git pull`, `make validate`, `make test`.

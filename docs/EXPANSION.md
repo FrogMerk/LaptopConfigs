@@ -17,7 +17,7 @@ make test
 - Arch + niri 26.04 on a ThinkPad T480: 1080p, Intel iGPU, no VRR
 - Everforest Dark (medium), 12 px gaps, 12 px window radius
 - Full Everforest GTK theme, Papirus-Dark with green folders, Adwaita cursors
-- Alacritty at 0.85 opacity with niri background blur; Zsh + Starship
+- Alacritty at 0.85 opacity with niri background blur; Zsh + Starship; micro
 - Waybar v2: workspaces, title, clock, media, idle inhibitor, updates, audio,
   network, CPU, memory, temperature, both batteries, tray
 - `wpaperd` cycles user-supplied wallpapers with a fuzzel picker
@@ -26,7 +26,6 @@ make test
 - nftables default-deny inbound; reflector, paccache and fwupd timers
 - Monthly maintenance report and user timer
 - `make validate`, `make test`, `make check`, `make icons`
-- Neovim is installed with no config yet
 - Commit signing is documented but not enabled
 - External-monitor layout is implemented but untested without hardware
 
@@ -61,7 +60,8 @@ make test
 - [ ] Workspace-specific gaps or struts: not needed at this layout
 - [x] Overview and workspace-switch visuals: zoom, backdrop, shadow, springs
 - [ ] Firefox theme (`userChrome`/`userContent`) or a matching extension theme
-- [ ] Neovim colorscheme and statusline (with the Neovim config below)
+- [x] Editor: micro replaces Neovim; Everforest shell and app theme carry over
+      without a modal editor config
 - [x] Starship prompt refinement: reviewed; the minimal two-line prompt is kept
 - [x] tuigreet/greetd theme: Everforest colours and a short time format
 - [ ] Optional boot polish (systemd-boot menu, Plymouth)
@@ -72,17 +72,16 @@ make test
       Xray renders blur once per wallpaper, so idle cost is negligible
 - [x] Spring animation parameters: tuned for short, non-bouncy movement
 - [x] Custom Waybar module: hourly `checkupdates` count, hidden when zero
-- [ ] Lock-screen blurred screenshot: the lock screen now shows the current
-      wallpaper; true blur needs `swaylock-effects` (AUR)
+- [x] Lock-screen blurred wallpaper: gtklock plus an ffmpeg-generated frost;
+      a real password field replaces the swaylock ring
 - [ ] Layer-shell extras (notifications/control centre) if useful
 
 ## 2. Workflow and applications
 
 ### Editor and shell
 
-- [ ] Neovim config: plugin manager, LSP, treesitter, telescope, git signs,
-      everforest colorscheme, statusline
-- [ ] Decide whether to start from scratch or a distro (Kickstart/LazyVim)
+- [x] Editor: micro replaces Neovim; no modal/vim config needed
+- [ ] Optional micro theme/syntax tweaks if the defaults feel plain
 - [ ] Add CLI upgrades: `eza`, `zoxide`, `fzf`, `bat`, `fd`, `ripgrep`,
       `lazygit`, `btop`, `fastfetch`
 - [ ] Zsh refinements: history search, completion styles, plugin tuning
@@ -141,18 +140,15 @@ make test
 
 The look-and-feel pass is complete. Next up:
 
-1. Start the Neovim config with the Everforest colorscheme, LSP and statusline.
+1. Optional micro theme/syntax tweaks; the editor works out of the box.
 2. Install the first CLI batch (`eza`, `zoxide`, `fzf`, `btop`, `lazygit`).
 3. Add annotated screenshots (`swappy` or `satty`).
 4. Add a Firefox `userChrome`/`userContent` Everforest theme.
-5. Decide on `swaylock-effects` for a blurred lock screen.
-6. Test the external-monitor profile when hardware is available.
+5. Test the external-monitor profile when hardware is available.
 
 ## Open questions
 
-- Neovim: hand-rolled config or a distro?
 - Firefox: how much chrome should the theme repaint?
-- Lock screen: keep the current wallpaper or add `swaylock-effects` blur?
 - AUR helper: `paru` or `yay`?
 - Backups: local external disk, remote, or both?
 - Commit signing: SSH key or a dedicated GPG key?

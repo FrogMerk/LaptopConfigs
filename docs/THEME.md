@@ -45,7 +45,9 @@ Everforest GTK theme, and Papirus icons with green folders.
 | `dotfiles/waybar/.config/waybar/style.css` | bar, pills, states |
 | `dotfiles/fuzzel/.config/fuzzel/fuzzel.ini` | launcher, green selection, frosted background |
 | `dotfiles/mako/.config/mako/config` | notifications, grouping, urgency colours |
-| `dotfiles/swaylock/.config/swaylock/config` | lock indicator and colours |
+| `dotfiles/gtklock/.config/gtklock/config.ini` | lock theme, clock and date |
+| `dotfiles/gtklock/.config/gtklock/style.css` | frosted lock box and password field |
+| `dotfiles/swaylock/.config/swaylock/config` | fallback lock indicator |
 | `dotfiles/starship/.config/starship.toml` | prompt |
 | `dotfiles/gtk/.themes/Everforest-Green-Dark-Medium/` | full GTK3 theme (vendored) |
 | `dotfiles/gtk/.config/gtk-4.0/` | same theme as a libadwaita override |
@@ -64,6 +66,8 @@ Everforest GTK theme, and Papirus icons with green folders.
 - **Notification icons:** disabled (`icons=0`). Mako 1.11 on this
   gdk-pixbuf/glycin stack refuses the Papirus SVGs and draws a placeholder;
   text-only is cleaner until the loader is fixed.
+- **Lock screen:** gtklock with a pre-blurred copy of the active wallpaper
+  (`ffmpeg`, generated at lock time) and a dark translucent password box.
 - **Blur:** `blur {}` uses 3 passes and xray (rendered once per wallpaper), so
   it is effectively free while idle.
 - **Animations:** 120–140 ms open/close easings and critically damped springs.
