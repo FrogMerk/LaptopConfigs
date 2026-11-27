@@ -59,6 +59,76 @@ layout {
     }
 }
 
+// --- Window rules -----------------------------------------------------------
+
+// Small utilities and dialogs float.
+window-rule {
+    match app-id="^(pavucontrol|nm-connection-editor|blueman-manager|org.gnome.Calculator|org.gnome.Settings|org.gnome.DiskUtility|gparted|file-roller|xdg-desktop-portal-gtk|swappy)$"
+    open-floating true
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.7; }
+}
+
+// Viewers open floating at a comfortable size.
+window-rule {
+    match app-id="^(imv|mpv|org.gnome.Loupe|eog)$"
+    open-floating true
+    default-column-width { fixed 1280; }
+    default-window-height { fixed 720; }
+}
+
+// Firefox Picture-in-Picture: small, bottom-right, never steal focus.
+window-rule {
+    match app-id="firefox$" title="^Picture-in-Picture"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 480; }
+    default-window-height { fixed 270; }
+    default-floating-position x=24 y=24 relative-to="bottom-right"
+}
+
+// Firefox gets a wider column; the PiP window is excluded above.
+window-rule {
+    match app-id="firefox$"
+    exclude title="^Picture-in-Picture"
+    default-column-width { proportion 0.66; }
+}
+
+// File manager: half-screen column.
+window-rule {
+    match app-id="org.gnome.Nautilus"
+    default-column-width { proportion 0.5; }
+}
+
+// Dropdown terminal, bound to Mod+Grave.
+window-rule {
+    match app-id="^dropdown$"
+    open-floating true
+    default-floating-position x=0 y=0 relative-to="top"
+    default-column-width { proportion 0.8; }
+    default-window-height { proportion 0.5; }
+}
+
+// Soft edges and a shadow for floating windows.
+window-rule {
+    match is-floating=true
+    geometry-corner-radius 10
+    clip-to-geometry true
+    shadow {
+        on
+        softness 30
+        spread 4
+        offset x=0 y=8
+        color "#00000060"
+    }
+}
+
+// Keep password managers out of screencasts.
+window-rule {
+    match app-id="^(org.keepassxc.KeePassXC|Bitwarden|1password)$"
+    block-out-from "screencast"
+}
+
 // Skip compositor animations: slightly less idle GPU work on the iGPU.
 animations {
     off
@@ -79,6 +149,8 @@ spawn-at-startup "mako"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "waybar"
 spawn-at-startup "sh" "-c" "swaybg -i $HOME/Pictures/Wallpapers/everforest-forest.png -m fill"
+spawn-at-startup "udiskie" "--automount" "--notify" "--tray"
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "timeout" "360" "niri msg action power-off-monitors" "before-sleep" "swaylock -f"
 
 hotkey-overlay {
@@ -91,6 +163,7 @@ binds {
     Mod+Return { spawn "alacritty"; }
     Mod+D { spawn "fuzzel"; }
     Mod+E { spawn "nautilus"; }
+    Mod+Grave { spawn "alacritty" "--class" "dropdown"; }
     Mod+Q repeat=false { close-window; }
 
     // Focus
@@ -151,6 +224,7 @@ binds {
     Mod+Comma { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
     Mod+O { toggle-overview; }
+    Mod+Shift+V { spawn-sh "cliphist list | fuzzel --dmenu --prompt='Clipboard: ' --width=60 --lines=15 | cliphist decode | wl-copy"; }
 
     // Session, screenshots, hotkey help
     Super+Alt+L { spawn "swaylock" "-f"; }
@@ -162,6 +236,10 @@ binds {
     // T480's Print key can be awkward to reach; keep an alternative.
     Mod+S { screenshot; }
     Mod+Shift+S { screenshot-screen; }
+    // Region / full-screen straight to the clipboard (no file).
+    Mod+Alt+Print { spawn-sh r#"grim -g "$(slurp)" - | wl-copy --type image/png"#; }
+    Mod+Alt+S { spawn-sh r#"grim -g "$(slurp)" - | wl-copy --type image/png"#; }
+    Mod+Alt+Shift+Print { spawn-sh "grim - | wl-copy --type image/png"; }
     Mod+Shift+P { power-off-monitors; }
 
     // Laptop keys

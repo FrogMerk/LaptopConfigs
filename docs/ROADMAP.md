@@ -46,16 +46,17 @@ Status: 2026-11-27
 
 ## 2 — niri ergonomics
 
-- [ ] Window rules (float, opacity, workspace placement, app-specific)
+- [x] Window rules: float utilities, viewers, Firefox PiP, dropdown terminal
+- [x] Dropdown terminal (`Mod+Grave`)
+- [x] Clipboard history (`cliphist` + fuzzel)
+- [x] Screenshot workflow: built-in UI plus region/full to clipboard
+- [x] `udiskie` automount + tray integration
+- [x] Verify media keys and add any missing laptop keys
 - [ ] Named workspaces and output layout
-- [ ] Screenshot workflow: grim + slurp + clipboard/disk
-- [ ] Clipboard history (`cliphist` or similar)
-- [ ] `udiskie` automount + tray integration
-- [ ] Verify media keys and add any missing laptop keys
+- [ ] Workspace placement rules for specific apps
 - [ ] Idle and lock policy beyond the current 5/6 minute timeouts
-- [ ] Animation and gesture tuning
+- [ ] Animation and gesture tuning (animations are currently off)
 - [ ] XWayland and portal verification
-- [ ] Scratchpad or floating-window workflow
 - [ ] External monitor / docking profile
 
 ## 3 — System
@@ -80,8 +81,8 @@ Status: 2026-11-27
 
 ## Next up
 
-1. Run `sudo ./scripts/install-baseline.sh` to install Zsh, Starship, swaybg and
-   Papirus, and to set Zsh as the login shell.
-2. Start swaybg for this session (or log out and back in).
-3. Commit and push the visual baseline.
-4. Move on to niri ergonomics (window rules, clipboard, screenshots).
+1. Run `sudo ./scripts/install-baseline.sh` to add `cliphist`, then start the
+   watcher: `niri msg action spawn -- wl-paste --watch cliphist store`.
+2. Commit and push the niri ergonomics baseline.
+3. Decide on named workspaces and app-to-workspace placement rules.
+4. Move on to the system/package audit.

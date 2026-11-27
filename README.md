@@ -11,6 +11,7 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - greetd + tuigreet login, starting `niri-session`
 - Alacritty + Zsh + Starship, themed with Everforest Dark
 - Waybar, mako, fuzzel, swaylock and swaybg
+- Clipboard history (cliphist) and removable-drive automount (udiskie)
 - PipeWire, NetworkManager, BlueZ
 - TLP + thermald + zram + ThinkPad charge thresholds
 - `linux` and `linux-lts` boot entries
@@ -98,6 +99,7 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+T` / `Mod+Return` | terminal (Alacritty) |
 | `Mod+D` | launcher (fuzzel) |
 | `Mod+E` | file manager (Nautilus) |
+| `Mod+Grave` | dropdown terminal (Alacritty, `--class dropdown`) |
 | `Mod+Q` | close window |
 | `Mod+H/J/K/L` or arrows | focus |
 | `Mod+Shift+H/J/K/L` | move column/window |
@@ -109,14 +111,19 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+F` | maximize column |
 | `Mod+Shift+F` | fullscreen |
 | `Mod+V` | toggle floating |
+| `Mod+Shift+V` | clipboard history (cliphist + fuzzel) |
 | `Mod+Space` | focus floating/tiling |
 | `Mod+O` | overview |
 | `Super+Alt+L` | lock |
 | `Mod+Escape` | toggle keyboard-shortcut inhibitor |
-| `Mod+Print` / `Mod+S` | interactive screenshot (clipboard + disk) |
+| `Mod+Print` / `Mod+S` | interactive screenshot (niri UI, saves to disk) |
 | `Mod+Shift+Print` / `Mod+Shift+S` | full-screen screenshot |
+| `Mod+Alt+Print` / `Mod+Alt+S` | region screenshot to clipboard |
+| `Mod+Alt+Shift+Print` | full-screen screenshot to clipboard |
 | `Mod+Shift+E` | quit niri |
 | media keys | playerctl play/pause, next, previous |
+
+`udiskie` runs at login, automounts removable drives and shows a Waybar tray icon. Clipboard history requires `cliphist`; install it with `sudo ./scripts/install-baseline.sh`.
 
 Touchpad gestures are niri's defaults: horizontal scroll pans the column view, swipes switch workspaces. Tune `input.touchpad` in `dotfiles/niri/.config/niri/config.kdl`.
 

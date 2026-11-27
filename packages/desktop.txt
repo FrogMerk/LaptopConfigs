@@ -33,6 +33,7 @@ zsh-syntax-highlighting
 zsh-completions
 starship
 wl-clipboard
+cliphist
 yazi
 zram-generator
 pacman-contrib
