@@ -253,6 +253,7 @@ applied from fstab.
 - **Wi-Fi not connecting:** `nmcli device wifi list`, then `nmtui`.
 - **Boot entry missing:** from the live ISO, mount the ESP and run `bootctl --esp-path=/mnt/boot install`, then recreate the loader entries.
 - **No `deep` sleep:** check `cat /sys/power/mem_sleep`; if only `s2idle` is listed, enable Linux S3 in the BIOS.
+- **Permission denied under `/boot`:** expected; the ESP is root-only (`700`). Use `sudo` for boot files.
 
 ## Security
 

@@ -22,10 +22,10 @@ Snapshot from 2026-11-27, after the first boot and the Everforest/niri setup.
 
 ## Findings
 
-1. **ESP is world-readable.** `/boot` and `/boot/loader/random-seed` were mode
-   755, so systemd-boot warns about an insecure random seed. The fstab entry is
-   now `fmask=0077,dmask=0077`; the running kernel kept reporting the old mask
-   after remount, so verify with `findmnt /boot` after the next reboot.
+1. **ESP was world-readable.** `/boot` and `/boot/loader/random-seed` were mode
+   755, which triggered the systemd-boot random-seed warning. Fixed in fstab
+   with `fmask=0077,dmask=0077`; after reboot `/boot` is mode 700, the seed is
+   root-only, and the warning is gone. Use `sudo` to inspect `/boot`.
 2. **Maintenance timers are disabled.** `paccache.timer`,
    `fwupd-refresh.timer` and `reflector.timer` are all disabled.
 3. **No inbound firewall.** `nftables` is installed but inactive. Only
