@@ -52,8 +52,8 @@ Status: 2026-11-27
 - [x] Screenshot workflow: built-in UI plus region/full to clipboard
 - [x] `udiskie` automount + tray integration
 - [x] Verify media keys and add any missing laptop keys
-- [ ] Named workspaces and output layout
-- [ ] Workspace placement rules for specific apps
+- [x] Named workspaces (`term`, `web`, `code`, `media`, `chat`, `files`)
+- [x] App-to-workspace placement rules
 - [ ] Idle and lock policy beyond the current 5/6 minute timeouts
 - [ ] Animation and gesture tuning (animations are currently off)
 - [ ] XWayland and portal verification
@@ -81,8 +81,6 @@ Status: 2026-11-27
 
 ## Next up
 
-1. Run `sudo ./scripts/install-baseline.sh` to add `cliphist`, then start the
-   watcher: `niri msg action spawn -- wl-paste --watch cliphist store`.
-2. Commit and push the niri ergonomics baseline.
-3. Decide on named workspaces and app-to-workspace placement rules.
-4. Move on to the system/package audit.
+1. Commit and push the named-workspace baseline.
+2. Move on to the system/package audit.
+3. Later: external-monitor profile and idle/gesture tuning.

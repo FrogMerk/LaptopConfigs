@@ -103,8 +103,10 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+Q` | close window |
 | `Mod+H/J/K/L` or arrows | focus |
 | `Mod+Shift+H/J/K/L` | move column/window |
-| `Mod+1..9` | workspace |
-| `Mod+Shift+1..9` | move column to workspace |
+| `Mod+1..6` | named workspace (term/web/code/media/chat/files) |
+| `Mod+7..9` | scratch workspace |
+| `Mod+Shift+1..6` | move column to a named workspace |
+| `Mod+Shift+7..9` | move column to a scratch workspace |
 | `Mod+Page_Up/Down` | previous/next workspace |
 | `Mod+R` | cycle column width |
 | `Mod+Minus` / `Mod+Equal` | shrink/grow column |
@@ -123,9 +125,23 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+Shift+E` | quit niri |
 | media keys | playerctl play/pause, next, previous |
 
-`udiskie` runs at login, automounts removable drives and shows a Waybar tray icon. Clipboard history requires `cliphist`; install it with `sudo ./scripts/install-baseline.sh`.
+`udiskie` runs at login, automounts removable drives and shows a Waybar tray icon. Clipboard history uses `cliphist` + fuzzel and is installed by the baseline script.
 
 Touchpad gestures are niri's defaults: horizontal scroll pans the column view, swipes switch workspaces. Tune `input.touchpad` in `dotfiles/niri/.config/niri/config.kdl`.
+
+## Workspaces
+
+| Key | Workspace | Used for |
+|---|---|---|
+| `Mod+1` | `term` | terminals |
+| `Mod+2` | `web` | Firefox |
+| `Mod+3` | `code` | editors and IDEs |
+| `Mod+4` | `media` | mpv, imv, image viewers |
+| `Mod+5` | `chat` | Discord, Signal, Telegram, Slack |
+| `Mod+6` | `files` | Nautilus |
+| `Mod+7..9` | dynamic | scratch workspaces |
+
+Waybar shows the workspace names. Apps route automatically: Firefox to `web`, Nautilus to `files`, viewers to `media`, and chat/code apps to their workspaces. New windows use the rules in `dotfiles/niri/.config/niri/config.kdl`; move anything manually with `Mod+Shift+<number>`.
 
 ## Theming
 
