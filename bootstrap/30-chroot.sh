@@ -62,6 +62,8 @@ systemctl enable bluetooth.service
 systemctl enable fstrim.timer
 systemctl enable paccache.timer
 systemctl enable fwupd-refresh.timer 2>/dev/null || true
+systemctl enable nftables.service
+systemctl enable reflector.timer
 systemctl enable systemd-timesyncd.service
 systemctl enable systemd-boot-update.service 2>/dev/null || true
 

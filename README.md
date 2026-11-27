@@ -12,6 +12,8 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - Alacritty + Zsh + Starship, themed with Everforest Dark
 - Waybar, mako, fuzzel, swaylock and swaybg
 - Clipboard history (cliphist) and removable-drive automount (udiskie)
+- nftables default-deny inbound firewall
+- Weekly reflector mirror refresh (Australia, HTTPS)
 - PipeWire, NetworkManager, BlueZ
 - TLP + thermald + zram + ThinkPad charge thresholds
 - `linux` and `linux-lts` boot entries
@@ -175,6 +177,21 @@ sudo pacman -Syu
   sudo pacman -U /var/cache/pacman/pkg/<pkg>-<version>.pkg.tar.zst
   ```
 - There are no filesystem snapshots on ext4. `/etc` history is in etckeeper; dotfiles are in git. Keep a rescue USB and know the `arch-chroot` procedure.
+- `checkupdates` lists pending upgrades without touching the system.
+- `paccache.timer` trims the package cache weekly; `reflector.timer` refreshes the mirrorlist weekly.
+- `nftables.service` applies `/etc/nftables.conf`, which denies unsolicited inbound traffic.
+
+## System maintenance
+
+Apply the one-time audit fixes on an existing install:
+
+```bash
+sudo ./scripts/apply-system-fixes.sh
+```
+
+It restricts ESP permissions, enables the maintenance timers, installs the
+nftables ruleset, configures reflector for Australia, and installs `fakeroot`.
+Re-running it is safe.
 
 ## Layout
 
@@ -207,9 +224,11 @@ sudo pacman -Syu
 │   └── zsh/.zshrc
 ├── etc/
 │   ├── greetd/config.toml
+│   ├── nftables.conf
 │   ├── tlp.d/10-t480.conf
 │   ├── systemd/zram-generator.conf
-│   └── sysctl.d/99-zram.conf
+│   ├── sysctl.d/99-zram.conf
+│   └── xdg/reflector/reflector.conf
 ├── docs/
 │   ├── AUDIT.md
 │   ├── ROADMAP.md

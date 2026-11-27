@@ -43,13 +43,14 @@ Snapshot from 2026-11-27, after the first boot and the Everforest/niri setup.
 
 - Restrict ESP permissions and remount `/boot`
 - Enable `paccache.timer` and `fwupd-refresh.timer`
+- Install and enable the default-deny `nftables` ruleset
+- Configure reflector for Australia and enable `reflector.timer`
 - Mark `gnupg` explicit
 - Install `fakeroot` so `checkupdates` works
 
 ## Recommended next
 
-- Decide on an inbound firewall (`nftables` with default-deny input).
-- Set a reflector country and enable `reflector.timer` if weekly mirror
-  refreshes are wanted.
 - Test a restore of `LaptopConfigs` on a scratch user or VM.
+- Set up GPG for commit/email signing if wanted; SSH auth already works.
+- Establish a monthly `pacman -Syu` and `checkupdates` routine.
 - Keep the EC firmware update in mind, but it is Windows-only.

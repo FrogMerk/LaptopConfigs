@@ -6,4 +6,5 @@ linux-firmware
 intel-ucode
 sudo
 networkmanager
+nftables
 git

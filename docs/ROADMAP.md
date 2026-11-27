@@ -68,9 +68,9 @@ Audit snapshot and findings: `docs/AUDIT.md`.
 - [x] Service audit: no failed units; timers need enabling
 - [x] Verify TLP, zram, suspend and charge thresholds
 - [x] Firmware / EC update note (EC is Windows-only)
-- [ ] Run `sudo ./scripts/apply-system-fixes.sh` (ESP permissions, paccache/fwupd timers, fakeroot)
-- [ ] Firewall decision (`nftables` default-deny input)
-- [ ] Reflector country + timer decision
+- [ ] Run `sudo ./scripts/apply-system-fixes.sh` (ESP permissions, timers, firewall, reflector, fakeroot)
+- [x] Firewall decision: `nftables` default-deny inbound
+- [x] Reflector: Australia, HTTPS, weekly timer
 - [ ] Backup and restore test for `LaptopConfigs`
 - [ ] Secrets handling (SSH, GPG, credentials)
 - [ ] Establish a monthly update/maintenance cadence
@@ -86,7 +86,7 @@ Audit snapshot and findings: `docs/AUDIT.md`.
 
 ## Next up
 
-1. Run `sudo ./scripts/apply-system-fixes.sh` to harden the ESP and enable
-   maintenance timers.
-2. Decide on the firewall and reflector timer.
+1. Run `sudo ./scripts/apply-system-fixes.sh` (ESP permissions, timers,
+   nftables firewall, reflector, fakeroot).
+2. Verify `nftables`, `reflector.timer` and `checkupdates`.
 3. Then external-monitor profile and idle/gesture tuning.
