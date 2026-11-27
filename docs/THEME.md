@@ -55,6 +55,7 @@ Everforest GTK theme, and Papirus icons with green folders.
 | `dotfiles/wpaperd/.config/wpaperd/config.toml` | wallpaper directory, interval, fade |
 | `dotfiles/systemd-user/.config/systemd/user/wpaperd.service` | wallpaper daemon lifecycle |
 | `dotfiles/bin/.local/bin/wallpaper` | picker, reload and wpaperctl wrapper |
+| `dotfiles/satty/.config/satty/config.toml` | screenshot annotation palette and font |
 | `scripts/apply-everforest-icons.sh` | green Papirus folder overlay |
 | `etc/greetd/config.toml` | tuigreet colour theme |
 
@@ -68,6 +69,8 @@ Everforest GTK theme, and Papirus icons with green folders.
   text-only is cleaner until the loader is fixed.
 - **Lock screen:** gtklock with a pre-blurred copy of the active wallpaper
   (`ffmpeg`, generated at lock time) and a dark translucent password box.
+- **Screenshot annotations:** satty uses the Everforest accent palette and
+  JetBrainsMono NF for text annotations.
 - **Blur:** `blur {}` uses 3 passes and xray (rendered once per wallpaper), so
   it is effectively free while idle.
 - **Animations:** 120–140 ms open/close easings and critically damped springs.

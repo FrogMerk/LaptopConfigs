@@ -23,7 +23,7 @@ Status: 2026-11-27
 - [x] Remove `t480-arch` path assumptions from bootstrap scripts
 - [x] Set a local git identity
 - [x] Add `docs/ROADMAP.md` and `docs/THEME.md`
-- [ ] Push the repo to GitHub (needs SSH key or token)
+- [x] Push the repo to GitHub
 
 ## 1 — Visual baseline (done)
 
@@ -91,11 +91,12 @@ See `docs/EXPANSION.md` for the full backlog.
 - [x] Animation and visual polish pass
 - [x] Waybar v2 and wallpaper manager
 - [x] GTK/icon/cursor theme depth (Qt deferred until needed)
-- [ ] Editor and shell upgrades
+- [x] Editor and shell upgrades (micro, eza, zoxide, fzf, btop, lazygit, fastfetch)
 - [ ] Backups, signing, AUR tooling and daily-workflow extras
 
 ## Next up
 
-The look-and-feel pass is complete. The next phase is logged in
-`docs/EXPANSION.md`: the CLI batch, annotated screenshots, Epiphany web apps
-and backups. Start a fresh session with `git pull`, `make validate`, `make test`.
+The look-and-feel and CLI passes are complete. The next phase is logged in
+`docs/EXPANSION.md`: backups, Epiphany web apps, commit signing/AUR tooling and
+idle-power measurement. Start a fresh session with `git pull`, `make validate`,
+`make test`.

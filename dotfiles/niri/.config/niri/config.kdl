@@ -104,6 +104,14 @@ window-rule {
     default-window-height { proportion 0.7; }
 }
 
+// Screenshot annotation opens floating above the current workspace.
+window-rule {
+    match app-id=r#"^org\.satty\.satty$"#
+    open-floating true
+    default-column-width { proportion 0.9; }
+    default-window-height { proportion 0.9; }
+}
+
 // Viewers open floating at a comfortable size.
 window-rule {
     match app-id="^(imv|mpv|org.gnome.Loupe|eog)$"
@@ -354,6 +362,7 @@ binds {
     // Region / full-screen straight to the clipboard (no file).
     Mod+Alt+Print { spawn-sh "$HOME/.local/bin/screenshot-region"; }
     Mod+Alt+S { spawn-sh "$HOME/.local/bin/screenshot-region"; }
+    Mod+Alt+A { spawn-sh "$HOME/.local/bin/screenshot-annotate"; }
     Mod+Alt+Shift+Print { spawn-sh "$HOME/.local/bin/screenshot-full"; }
     Mod+Shift+P { power-off-monitors; }
 

@@ -37,9 +37,11 @@ links=(
   .config/systemd/user/wpaperd.service
   .config/wpaperd
   .config/gtklock
+  .config/satty
   .themes/Everforest-Green-Dark-Medium
   .zshrc
   .local/bin/screenshot-region
+  .local/bin/screenshot-annotate
   .local/bin/wallpaper
 )
 for link in "${links[@]}"; do
@@ -66,6 +68,7 @@ root = pathlib.Path(sys.argv[1])
 tomllib.loads((root / "dotfiles/alacritty/.config/alacritty/alacritty.toml").read_text())
 tomllib.loads((root / "dotfiles/starship/.config/starship.toml").read_text())
 tomllib.loads((root / "dotfiles/wpaperd/.config/wpaperd/config.toml").read_text())
+tomllib.loads((root / "dotfiles/satty/.config/satty/config.toml").read_text())
 json.loads((root / "dotfiles/waybar/.config/waybar/config.jsonc").read_text())
 print("TOML and JSON configs OK")
 PY
@@ -83,5 +86,8 @@ fi
 
 log "Checking shell syntax"
 bash -n "$tmp"/repo/bootstrap/*.sh "$tmp"/repo/scripts/*.sh "$tmp"/repo/post-install.sh
+if command -v zsh >/dev/null 2>&1; then
+  zsh -n "$tmp/home/.zshrc"
+fi
 
 log "Restore test passed"

@@ -1,0 +1,30 @@
+# Everforest screenshot annotation.
+[general]
+fullscreen = "current-screen"
+floating-hack = true
+early-exit = ["copy"]
+corner-roundness = 8
+initial-tool = "arrow"
+copy-command = "wl-copy"
+annotation-size-factor = 1.5
+save-after-copy = true
+actions-on-enter = ["save-to-clipboard"]
+actions-on-escape = ["exit"]
+no-window-decoration = true
+title = "Screenshot"
+app-id = "org.satty.satty"
+
+[font]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[color-palette]
+palette = [
+  "#E67E80FF",
+  "#E69875FF",
+  "#DBBC7FFF",
+  "#A7C080FF",
+  "#83C092FF",
+  "#7FBBB3FF",
+  "#D699B6FF",
+]

@@ -44,6 +44,18 @@ if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; 
   source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
+# --- tools ------------------------------------------------------------------
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+if command -v fzf >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --info=inline --color=bg+:#343F44,bg:#2D353B,spinner:#A7C080,hl:#A7C080,fg:#D3C6AA,header:#7FBBB3,info:#DBBC7F,pointer:#A7C080,marker:#D699B6,fg+:#D3C6AA,prompt:#A7C080,hl+:#A7C080"
+  source <(fzf --zsh)
+fi
+
 # Syntax highlighting must be sourced last.
 if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -63,11 +75,20 @@ elif command -v nano >/dev/null 2>&1; then
 fi
 
 # --- aliases ----------------------------------------------------------------
-alias ls='ls --color=auto'
-alias ll='ls -lah'
-alias la='ls -A'
-alias l='ls -CF'
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza --icons --group-directories-first'
+  alias ll='eza -lah --icons --group-directories-first'
+  alias la='eza -A --icons --group-directories-first'
+  alias l='eza -CF --icons --group-directories-first'
+  alias tree='eza --tree --icons'
+else
+  alias ls='ls --color=auto'
+  alias ll='ls -lah'
+  alias la='ls -A'
+  alias l='ls -CF'
+fi
 alias grep='grep --color=auto'
+alias lg='lazygit'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias g='git'

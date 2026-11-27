@@ -18,6 +18,8 @@ make test
 - Everforest Dark (medium), 12 px gaps, 12 px window radius
 - Full Everforest GTK theme, Papirus-Dark with green folders, Adwaita cursors
 - Alacritty at 0.85 opacity with niri background blur; Zsh + Starship; micro
+- CLI: eza, zoxide, fzf, bat, fd, ripgrep, btop, lazygit, fastfetch
+- Intel iHD VA-API verified; GStreamer VA decoders available
 - Waybar v2: workspaces, title, clock, media, idle inhibitor, updates, audio,
   network, CPU, memory, temperature, both batteries, tray
 - `wpaperd` cycles user-supplied wallpapers with a fuzzel picker
@@ -81,18 +83,20 @@ make test
 
 - [x] Editor: micro replaces Neovim; no modal/vim config needed
 - [ ] Optional micro theme/syntax tweaks if the defaults feel plain
-- [ ] Add CLI upgrades: `eza`, `zoxide`, `fzf`, `bat`, `fd`, `ripgrep`,
+- [x] Add CLI upgrades: `eza`, `zoxide`, `fzf`, `bat`, `fd`, `ripgrep`,
       `lazygit`, `btop`, `fastfetch`
-- [ ] Zsh refinements: history search, completion styles, plugin tuning
+- [x] Zsh refinements: fzf history/file search, zoxide jumps, eza aliases
 - [ ] Shell secrets/agent integration if a key passphrase is added
 
 ### Desktop apps
 
-- [ ] Screenshot annotation (`swappy` or `satty`) and OCR if useful
+- [x] Screenshot annotation with satty (Everforest palette, clipboard + file);
+      OCR still optional
 - [ ] Verify cliphist handles images as well as text
 - [ ] mpv config and MPRIS/Waybar media integration
 - [ ] File manager: Nautilus tweaks or a yazi-first workflow
-- [ ] Browser: Epiphany web apps, bookmarks, VA-API/GStreamer check
+- [x] Browser: VA-API/GStreamer verified with iHD (H.264/H.265/VP8/VP9)
+- [ ] Epiphany web apps and bookmark import
 - [ ] Communication apps (Signal/Discord/Telegram) via repo, Flatpak or AUR
 - [ ] PDF/office tooling if needed
 - [ ] More MIME defaults (archives, PDFs, mail, calendars)
@@ -128,7 +132,7 @@ make test
 
 - [ ] Shellcheck/shfmt pre-commit or CI
 - [ ] GitHub Actions for TOML/JSON/shell validation (niri needs the local session)
-- [ ] Keybind cheatsheet in `docs/KEYS.md`
+- [x] Keybind cheatsheet in `docs/KEYS.md`
 - [ ] Keep `docs/THEME.md`, `docs/AUDIT.md` and this backlog current
 - [ ] Consider GitHub Issues/Projects for larger experiments
 - [ ] Dotfiles portability review (hardcoded paths, output names)
@@ -137,13 +141,13 @@ make test
 
 ## Suggested next session
 
-The look-and-feel pass is complete. Next up:
+The look-and-feel and CLI batches are complete. Next up:
 
-1. Optional micro theme/syntax tweaks; the editor works out of the box.
-2. Install the first CLI batch (`eza`, `zoxide`, `fzf`, `btop`, `lazygit`).
-3. Add annotated screenshots (`swappy` or `satty`).
-4. Try Epiphany web apps and check VA-API playback with the GStreamer plugins.
-5. Test the external-monitor profile when hardware is available.
+1. Backups: choose a target and do a restic restore drill.
+2. Epiphany web apps and bookmark import.
+3. External-monitor test when hardware is available.
+4. Commit signing, AUR helper and idle-power measurement.
+5. Shellcheck/CI and dotfiles portability.
 
 ## Open questions
 

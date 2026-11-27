@@ -13,6 +13,7 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - Waybar, mako, fuzzel, gtklock and wpaperd
 - Clipboard history (cliphist) and removable-drive automount (udiskie)
 - Epiphany (GNOME Web), micro, xdg default-app associations and personal helper scripts
+- CLI quality-of-life: eza, zoxide, fzf, bat, fd, ripgrep, btop, lazygit, fastfetch
 - Monthly maintenance timer and a one-command restore test
 - nftables default-deny inbound firewall
 - Weekly reflector mirror refresh (Australia, HTTPS)
@@ -98,6 +99,8 @@ missing desktop packages and sets the login shell in one step.
 
 ## Keybinds
 
+The full cheatsheet is in [`docs/KEYS.md`](docs/KEYS.md).
+
 | Key | Action |
 |---|---|
 | `Mod+T` / `Mod+Return` | terminal (Alacritty) |
@@ -128,6 +131,7 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+Print` / `Mod+S` | interactive screenshot (niri UI, saves to disk) |
 | `Mod+Shift+Print` / `Mod+Shift+S` | full-screen screenshot |
 | `Mod+Alt+Print` / `Mod+Alt+S` | region screenshot to clipboard |
+| `Mod+Alt+A` | region screenshot → satty annotation |
 | `Mod+Alt+Shift+Print` | full-screen screenshot to clipboard |
 | `Mod+Shift+E` | quit niri |
 | media keys | playerctl play/pause, next, previous |
@@ -294,6 +298,7 @@ left.
 │   ├── gtklock/.config/gtklock/
 │   ├── mako/.config/mako/config
 │   ├── niri/.config/niri/config.kdl
+│   ├── satty/.config/satty/config.toml
 │   ├── starship/.config/starship.toml
 │   ├── swaylock/.config/swaylock/config
 │   ├── systemd-user/.config/systemd/user/
@@ -312,6 +317,7 @@ left.
 ├── docs/
 │   ├── AUDIT.md
 │   ├── EXPANSION.md
+│   ├── KEYS.md
 │   ├── ROADMAP.md
 │   ├── SECRETS.md
 │   └── THEME.md

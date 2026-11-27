@@ -5,6 +5,8 @@ mpv
 ffmpeg
 gst-libav
 gst-plugin-va
+intel-media-driver
+libva-utils
 grim
 slurp
 playerctl
@@ -12,6 +14,13 @@ udiskie
 ripgrep
 fd
 bat
+eza
+zoxide
+fzf
+lazygit
+btop
+fastfetch
+satty
 make
 micro
 man-db
