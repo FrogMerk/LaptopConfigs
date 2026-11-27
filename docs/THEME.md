@@ -38,7 +38,6 @@ designed for long sessions. See the upstream palette:
 |---|---|
 | `dotfiles/niri/.config/niri/config.kdl` | background and focus ring |
 | `dotfiles/alacritty/.config/alacritty/alacritty.toml` | full terminal palette |
-| `dotfiles/foot/.config/foot/foot.ini` | fallback terminal palette |
 | `dotfiles/waybar/.config/waybar/style.css` | bar and workspace colours |
 | `dotfiles/fuzzel/.config/fuzzel/fuzzel.ini` | launcher |
 | `dotfiles/mako/.config/mako/config` | notifications |

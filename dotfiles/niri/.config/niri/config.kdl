@@ -89,7 +89,6 @@ binds {
     // Applications
     Mod+T { spawn "alacritty"; }
     Mod+Return { spawn "alacritty"; }
-    Mod+Shift+Return { spawn "foot"; }
     Mod+D { spawn "fuzzel"; }
     Mod+E { spawn "nautilus"; }
     Mod+Q repeat=false { close-window; }

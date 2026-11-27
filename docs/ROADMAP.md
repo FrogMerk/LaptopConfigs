@@ -16,7 +16,7 @@ Status: 2026-11-27
 ## 0 — Repo hygiene (done)
 
 - [x] Bootstrap scripts and first install
-- [x] Stow niri / foot / fuzzel / mako dotfiles
+- [x] Stow niri / fuzzel / mako dotfiles
 - [x] Commit installed locale/keymap drift
 - [x] Remove stray line from `config.env.example`
 - [x] Auto-discover dotfile packages in `scripts/apply-dotfiles.sh`
@@ -27,7 +27,7 @@ Status: 2026-11-27
 
 ## 1 — Visual baseline (in progress)
 
-- [x] Apply Everforest to niri, foot, fuzzel, mako, Alacritty
+- [x] Apply Everforest to niri, fuzzel, mako, Alacritty
 - [x] Waybar config and stylesheet
 - [x] Swaylock config
 - [x] Starship prompt and Zsh config

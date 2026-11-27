@@ -17,7 +17,6 @@ tlp
 thermald
 fuzzel
 mako
-foot
 swayidle
 swaylock
 xdg-desktop-portal

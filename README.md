@@ -96,7 +96,6 @@ missing desktop packages and sets the login shell in one step.
 | Key | Action |
 |---|---|
 | `Mod+T` / `Mod+Return` | terminal (Alacritty) |
-| `Mod+Shift+Return` | fallback terminal (foot) |
 | `Mod+D` | launcher (fuzzel) |
 | `Mod+E` | file manager (Nautilus) |
 | `Mod+Q` | close window |
@@ -123,7 +122,7 @@ Touchpad gestures are niri's defaults: horizontal scroll pans the column view, s
 
 ## Theming
 
-Everforest Dark (medium contrast) is applied across niri, Alacritty, foot, Waybar, fuzzel, mako, swaylock, Starship and GTK accents. See `docs/THEME.md` for the palette and the file map.
+Everforest Dark (medium contrast) is applied across niri, Alacritty, Waybar, fuzzel, mako, swaylock, Starship and GTK accents. See `docs/THEME.md` for the palette and the file map.
 
 Regenerate the wallpaper (stdlib only, no external assets):
 
@@ -171,7 +170,6 @@ sudo pacman -Syu
 │   └── extras.txt
 ├── dotfiles/
 │   ├── alacritty/.config/alacritty/alacritty.toml
-│   ├── foot/.config/foot/foot.ini
 │   ├── fuzzel/.config/fuzzel/fuzzel.ini
 │   ├── gtk/.config/gtk-3.0/settings.ini
 │   ├── gtk/.config/gtk-3.0/gtk.css
