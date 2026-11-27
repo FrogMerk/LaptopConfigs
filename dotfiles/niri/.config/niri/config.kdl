@@ -273,7 +273,7 @@ binds {
     // Applications
     Mod+T { spawn "alacritty"; }
     Mod+Return { spawn "alacritty"; }
-    Mod+D { spawn "fuzzel"; }
+    Mod+Space { spawn "fuzzel"; }
     Mod+E { spawn "nautilus"; }
     Mod+Grave { spawn "alacritty" "--class" "dropdown"; }
     Mod+Shift+D { spawn-sh "$HOME/.local/bin/dock extend"; }
@@ -333,7 +333,7 @@ binds {
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+V { toggle-window-floating; }
-    Mod+Space { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
     Mod+Comma { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
     Mod+O { toggle-overview; }

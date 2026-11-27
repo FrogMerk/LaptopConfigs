@@ -101,7 +101,7 @@ missing desktop packages and sets the login shell in one step.
 | Key | Action |
 |---|---|
 | `Mod+T` / `Mod+Return` | terminal (Alacritty) |
-| `Mod+D` | launcher (fuzzel) |
+| `Mod+Space` | launcher (fuzzel) |
 | `Mod+E` | file manager (Nautilus) |
 | `Mod+Grave` | dropdown terminal (Alacritty, `--class dropdown`) |
 | `Mod+Shift+D` | dock: extend display to the external monitor |
@@ -121,7 +121,7 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+Shift+V` | clipboard history (cliphist + fuzzel) |
 | `Mod+Shift+W` | wallpaper picker |
 | `Mod+Alt+W` | next wallpaper |
-| `Mod+Space` | focus floating/tiling |
+| `Mod+Shift+Space` | focus floating/tiling |
 | `Mod+O` | overview |
 | `Super+Alt+L` | lock (gtklock) |
 | `Mod+Escape` | toggle keyboard-shortcut inhibitor |
