@@ -33,7 +33,7 @@ output "eDP-1" {
 }
 
 layout {
-    gaps 8
+    gaps 12
     center-focused-column "never"
     background-color "#2d353b"
 
@@ -109,11 +109,23 @@ window-rule {
     default-window-height { proportion 0.5; }
 }
 
-// Soft edges and a shadow for floating windows.
+// Rounded corners for tiled windows.
+window-rule {
+    match is-floating=false
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+// Rounded corners for floating windows.
 window-rule {
     match is-floating=true
-    geometry-corner-radius 10
+    geometry-corner-radius 12
     clip-to-geometry true
+}
+
+// Soft shadow for floating windows.
+window-rule {
+    match is-floating=true
     shadow {
         on
         softness 30
