@@ -21,6 +21,7 @@ lazygit
 btop
 fastfetch
 satty
+restic
 make
 micro
 man-db

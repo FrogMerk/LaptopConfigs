@@ -1,0 +1,13 @@
+# Caches, trash and browser/app data that can be regenerated.
+/home/eddo/.cache
+/home/eddo/.local/share/Trash
+/home/eddo/.local/share/flatpak
+/home/eddo/.local/share/Steam
+/home/eddo/.local/share/containers
+/home/eddo/.thumbnails
+/home/eddo/.cargo/registry
+/home/eddo/.rustup
+/home/eddo/.npm
+/home/eddo/.config/google-chrome
+/home/eddo/.mozilla
+/home/eddo/.cache/mozilla

@@ -1,0 +1,15 @@
+[Unit]
+Description=Restic backup of home and /etc
+Documentation=file:///home/eddo/LaptopConfigs/docs/BACKUP.md
+ConditionPathExists=/etc/restic/env
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/restic/env
+Environment=RESTIC_CACHE_DIR=/var/cache/restic
+Nice=10
+IOSchedulingClass=idle
+ExecStart=/usr/bin/restic backup --files-from /etc/restic/include --exclude-file /etc/restic/exclude --exclude-caches --tag automatic --verbose
+ExecStartPost=/usr/bin/restic forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune --tag automatic

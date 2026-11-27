@@ -14,7 +14,7 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - Clipboard history (cliphist) and removable-drive automount (udiskie)
 - Epiphany (GNOME Web), micro, xdg default-app associations and personal helper scripts
 - CLI quality-of-life: eza, zoxide, fzf, bat, fd, ripgrep, btop, lazygit, fastfetch
-- Monthly maintenance timer and a one-command restore test
+- Encrypted restic backups of home and `/etc`, plus restore drills
 - nftables default-deny inbound firewall
 - Weekly reflector mirror refresh (Australia, HTTPS)
 - PipeWire, NetworkManager, BlueZ
@@ -205,6 +205,23 @@ systemctl --user restart wpaperd.service
 directory or interval, edit
 `dotfiles/wpaperd/.config/wpaperd/config.toml`.
 
+## Backups
+
+`restic` backs up `/home/eddo` and `/etc` daily at 03:00, keeping 7 daily, 4
+weekly and 6 monthly snapshots. The default repository is local staging at
+`/var/backups/restic`; copy it to an external disk or remote target for
+disk-failure protection.
+
+```bash
+make backup         # run a backup now
+make backup-status  # list snapshots
+make backup-test    # integrity check + restore sample files
+```
+
+The repository password is root-only in `/etc/restic/password`; copy it into
+NordPass. See [`docs/BACKUP.md`](docs/BACKUP.md) for setup, off-device
+migration and restore commands.
+
 ## T480 notes
 
 - Confirm S3 suspend: `cat /sys/power/mem_sleep` should show `[deep]`. If it shows `s2idle`, set the BIOS sleep state to **Linux**.
@@ -310,12 +327,18 @@ left.
 ├── etc/
 │   ├── greetd/config.toml
 │   ├── nftables.conf
+│   ├── restic/
+│   │   ├── exclude
+│   │   └── include
 │   ├── tlp.d/10-t480.conf
+│   ├── systemd/system/restic-backup.service
+│   ├── systemd/system/restic-backup.timer
 │   ├── systemd/zram-generator.conf
 │   ├── sysctl.d/99-zram.conf
 │   └── xdg/reflector/reflector.conf
 ├── docs/
 │   ├── AUDIT.md
+│   ├── BACKUP.md
 │   ├── EXPANSION.md
 │   ├── KEYS.md
 │   ├── ROADMAP.md
@@ -325,9 +348,11 @@ left.
 │   ├── apply-dotfiles.sh
 │   ├── apply-everforest-icons.sh
 │   ├── apply-system-fixes.sh
+│   ├── install-backups.sh
 │   ├── install-baseline.sh
 │   ├── install-extras.sh
 │   ├── maintenance-check.sh
+│   ├── test-backup.sh
 │   └── test-restore.sh
 └── post-install.sh
 ```

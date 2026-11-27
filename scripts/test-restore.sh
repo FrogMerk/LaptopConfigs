@@ -52,6 +52,10 @@ done
   fail "GTK3 theme is missing"
 [[ -s "$tmp/home/.config/gtk-4.0/gtk.css" ]] ||
   fail "GTK4 theme override is missing"
+[[ -s "$tmp/repo/etc/restic/include" ]] ||
+  fail "restic include file is missing"
+[[ -s "$tmp/repo/etc/systemd/system/restic-backup.timer" ]] ||
+  fail "restic backup timer is missing"
 
 log "Validating niri config"
 HOME="$tmp/home" XDG_CONFIG_HOME="$tmp/home/.config" \
