@@ -280,6 +280,7 @@ left.
 │   └── xdg/reflector/reflector.conf
 ├── docs/
 │   ├── AUDIT.md
+│   ├── EXPANSION.md
 │   ├── ROADMAP.md
 │   ├── SECRETS.md
 │   └── THEME.md

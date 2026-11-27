@@ -86,12 +86,16 @@ Audit snapshot and findings: `docs/AUDIT.md`.
 
 ## 5 — Expansion and refinement
 
-- [ ] Explore additional tools and workflows
-- [ ] Theme polish: animations, Waybar modules, GTK/Qt depth
-- [ ] Neovim configuration
-- [ ] Further desktop integration and quality-of-life scripts
+See `docs/EXPANSION.md` for the full backlog.
+
+- [ ] Animation and visual polish pass
+- [ ] Waybar v2 and wallpaper set
+- [ ] GTK/Qt/icon/cursor theme depth
+- [ ] Neovim configuration and shell upgrades
+- [ ] Backups, signing, AUR tooling and daily-workflow extras
 
 ## Next up
 
-Roadmap complete. Next phase is expansion and look/feel refinement: animations,
-Waybar modules, Neovim configuration, and additional desktop workflows.
+Roadmap complete. The next phase is logged in `docs/EXPANSION.md`: animation
+and visual polish, Waybar v2, theming depth, Neovim, backups and workflow
+extras. Start a fresh session with `git pull`, `make validate`, `make test`.
