@@ -68,7 +68,7 @@ Audit snapshot and findings: `docs/AUDIT.md`.
 - [x] Service audit: no failed units; timers need enabling
 - [x] Verify TLP, zram, suspend and charge thresholds
 - [x] Firmware / EC update note (EC is Windows-only)
-- [ ] Run `sudo ./scripts/apply-system-fixes.sh` (ESP permissions, timers, firewall, reflector, fakeroot)
+- [x] Run `sudo ./scripts/apply-system-fixes.sh` (ESP fstab, timers, firewall, reflector, fakeroot); reboot pending for the ESP mask
 - [x] Firewall decision: `nftables` default-deny inbound
 - [x] Reflector: Australia, HTTPS, weekly timer
 - [ ] Backup and restore test for `LaptopConfigs`

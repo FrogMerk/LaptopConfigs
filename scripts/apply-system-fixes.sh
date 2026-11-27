@@ -24,11 +24,17 @@ if grep -q 'fmask=0022,dmask=0022' /etc/fstab; then
   backup_file /etc/fstab
   sed -i 's/fmask=0022,dmask=0022/fmask=0077,dmask=0077/' /etc/fstab
   log "Restricted ESP permissions in /etc/fstab."
-  if mountpoint -q /boot; then
-    mount -o remount /boot || warn "Could not remount /boot; reboot to apply."
-  fi
 else
-  log "ESP permissions already restricted, or pattern not found."
+  log "ESP fstab entry already restricted, or pattern not found."
+fi
+
+if mountpoint -q /boot; then
+  mount -o remount /boot || warn "Could not remount /boot."
+  if findmnt -n -o OPTIONS /boot | grep -q 'fmask=0077'; then
+    log "ESP mount uses the restricted mask."
+  else
+    warn "Live /boot still reports old masks; a reboot applies the fstab entry."
+  fi
 fi
 
 # --- maintenance timers -----------------------------------------------------
@@ -53,7 +59,7 @@ fi
 backup_file /etc/xdg/reflector/reflector.conf
 install -Dm644 "$REPO_DIR/etc/xdg/reflector/reflector.conf" \
   /etc/xdg/reflector/reflector.conf
-systemctl enable reflector.timer
+systemctl enable --now reflector.timer
 backup_file /etc/pacman.d/mirrorlist
 if systemctl start reflector.service; then
   log "Reflector refreshed the mirrorlist (Australia, HTTPS, 10 newest)."

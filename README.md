@@ -191,7 +191,8 @@ sudo ./scripts/apply-system-fixes.sh
 
 It restricts ESP permissions, enables the maintenance timers, installs the
 nftables ruleset, configures reflector for Australia, and installs `fakeroot`.
-Re-running it is safe.
+Re-running it is safe. Reboot once after the first run so the ESP mask is
+applied from fstab.
 
 ## Layout
 
