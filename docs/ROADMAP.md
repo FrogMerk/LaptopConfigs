@@ -54,10 +54,10 @@ Status: 2026-11-27
 - [x] Verify media keys and add any missing laptop keys
 - [x] Named workspaces (`term`, `web`, `code`, `media`, `chat`, `files`)
 - [x] App-to-workspace placement rules
-- [ ] Idle and lock policy beyond the current 5/6 minute timeouts
-- [ ] Animation and gesture tuning (animations are currently off)
-- [ ] XWayland and portal verification
-- [ ] External monitor / docking profile
+- [x] Idle and lock policy: lock 5 min, display off 6 min, suspend 20 min
+- [x] Animation and gesture tuning: animations intentionally off for battery; defaults verified
+- [x] XWayland and portal verification: satellite launched with an X11 Firefox window; portals active
+- [x] External monitor / docking profile: `dock` helper plus output template
 
 ## 3 — System
 
@@ -71,22 +71,27 @@ Audit snapshot and findings: `docs/AUDIT.md`.
 - [x] Run `sudo ./scripts/apply-system-fixes.sh` (ESP mask verified after reboot, timers, firewall, reflector, fakeroot)
 - [x] Firewall decision: `nftables` default-deny inbound
 - [x] Reflector: Australia, HTTPS, weekly timer
-- [ ] Backup and restore test for `LaptopConfigs`
-- [ ] Secrets handling (SSH, GPG, credentials)
-- [ ] Establish a monthly update/maintenance cadence
+- [x] Backup and restore test for `LaptopConfigs` (`make test`)
+- [x] Secrets handling: SSH auth configured; signing options in `docs/SECRETS.md`
+- [x] Monthly update/maintenance cadence: report script plus user timer
 
 ## 4 — Workflow
 
-- [ ] Refine Zsh aliases, plugins and completion behaviour
-- [ ] Editor choice (vim / neovim / micro)
-- [ ] Default applications via `xdg-mime`
-- [ ] SSH / GPG setup
-- [ ] Personal scripts in `~/.local/bin`
-- [ ] Consider a `justfile` or Makefile for repo tasks
+- [x] Refine Zsh aliases, plugins and completion behaviour
+- [x] Editor choice: Neovim (`EDITOR=nvim`, `vim` aliased)
+- [x] Default applications via `xdg-mime` (`mimeapps.list`)
+- [x] SSH / GPG setup: SSH auth configured; signing options documented
+- [x] Personal scripts in `~/.local/bin` (screenshots, clipboard, lock, dock)
+- [x] Repository Makefile (`dots`, `validate`, `test`, `check`, `wallpaper`)
+
+## 5 — Expansion and refinement
+
+- [ ] Explore additional tools and workflows
+- [ ] Theme polish: animations, Waybar modules, GTK/Qt depth
+- [ ] Neovim configuration
+- [ ] Further desktop integration and quality-of-life scripts
 
 ## Next up
 
-1. Run `sudo ./scripts/apply-system-fixes.sh` (ESP permissions, timers,
-   nftables firewall, reflector, fakeroot).
-2. Verify `nftables`, `reflector.timer` and `checkupdates`.
-3. Then external-monitor profile and idle/gesture tuning.
+Roadmap complete. Next phase is expansion and look/feel refinement: animations,
+Waybar modules, Neovim configuration, and additional desktop workflows.

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Copy a selected screen region to the clipboard as PNG.
+set -Eeuo pipefail
+region="$(slurp)" || exit 0
+grim -g "$region" - | wl-copy --type image/png

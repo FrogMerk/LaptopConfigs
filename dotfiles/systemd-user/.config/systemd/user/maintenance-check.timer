@@ -1,0 +1,9 @@
+[Unit]
+Description=Monthly maintenance reminder
+
+[Timer]
+OnCalendar=*-*-1 09:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

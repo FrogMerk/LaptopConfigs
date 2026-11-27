@@ -21,6 +21,7 @@ swayidle
 swaylock
 xdg-desktop-portal
 xdg-desktop-portal-gtk
+xdg-utils
 polkit
 polkit-gnome
 noto-fonts

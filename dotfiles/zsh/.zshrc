@@ -26,10 +26,7 @@ bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
 # --- completions ------------------------------------------------------------
-if [[ -d /usr/share/zsh/plugins/zsh-completions/src ]]; then
-  fpath=(/usr/share/zsh/plugins/zsh-completions/src $fpath)
-fi
-
+# zsh-completions installs into /usr/share/zsh/site-functions, already on fpath.
 autoload -Uz compinit && compinit -i
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
@@ -57,6 +54,12 @@ export PATH="$HOME/.local/bin:$PATH"
 export PAGER=less
 export LESS='-R'
 
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+  export VISUAL=nvim
+  alias vim='nvim'
+fi
+
 # --- aliases ----------------------------------------------------------------
 alias ls='ls --color=auto'
 alias ll='ls -lah'
@@ -71,7 +74,10 @@ alias gd='git diff'
 alias gl='git log --oneline --graph --decorate -20'
 alias pac='sudo pacman'
 alias update='sudo pacman -Syu'
+alias check='checkupdates'
 alias dots='cd ~/LaptopConfigs'
+alias maint='~/LaptopConfigs/scripts/maintenance-check.sh'
+alias restore-test='~/LaptopConfigs/scripts/test-restore.sh'
 alias ports='ss -tulpn'
 
 mkcd() {

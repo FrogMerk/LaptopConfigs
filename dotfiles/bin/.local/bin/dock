@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Change the display layout when an external monitor is connected.
+# Usage: dock [extend|external-only|internal-only]
+set -Eeuo pipefail
+
+mode="${1:-extend}"
+internal="eDP-1"
+
+external="$(niri msg --json outputs | python3 -c '
+import json, sys
+for name in json.load(sys.stdin):
+    if not name.startswith("eDP"):
+        print(name)
+        break
+')"
+
+if [[ -z "$external" ]]; then
+  echo "No external output connected." >&2
+  exit 1
+fi
+
+case "$mode" in
+  extend)
+    niri msg output "$internal" on
+    niri msg output "$external" on
+    niri msg output "$external" scale auto
+    niri msg output "$external" position set 1920 0
+    ;;
+  external-only)
+    niri msg output "$external" on
+    niri msg output "$external" scale auto
+    niri msg output "$external" position set 0 0
+    niri msg output "$internal" off
+    ;;
+  internal-only)
+    niri msg output "$external" off
+    niri msg output "$internal" on
+    niri msg output "$internal" position set 0 0
+    ;;
+  *)
+    echo "Usage: dock [extend|external-only|internal-only]" >&2
+    exit 2
+    ;;
+esac
+
+echo "Display mode: $mode ($external)"

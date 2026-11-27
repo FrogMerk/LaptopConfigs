@@ -32,6 +32,12 @@ output "eDP-1" {
     scale 1.0
 }
 
+// External display template: uncomment and adjust when docked.
+// output "HDMI-A-1" {
+//     scale 1.0
+//     position x=1920 y=0
+// }
+
 // Named workspaces. Number keys 1-6 map to these; 7-9 stay dynamic.
 workspace "term"
 workspace "web"
@@ -163,7 +169,7 @@ window-rule {
     block-out-from "screencast"
 }
 
-// Skip compositor animations: slightly less idle GPU work on the iGPU.
+// Disabled for battery life on the T480 iGPU; revisit in the look/feel phase.
 animations {
     off
 }
@@ -185,7 +191,7 @@ spawn-at-startup "waybar"
 spawn-at-startup "sh" "-c" "swaybg -i $HOME/Pictures/Wallpapers/everforest-forest.png -m fill"
 spawn-at-startup "udiskie" "--automount" "--notify" "--tray"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
-spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "timeout" "360" "niri msg action power-off-monitors" "before-sleep" "swaylock -f"
+spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "timeout" "360" "niri msg action power-off-monitors" "timeout" "1200" "systemctl suspend" "before-sleep" "swaylock -f"
 
 hotkey-overlay {
     skip-at-startup
@@ -198,6 +204,7 @@ binds {
     Mod+D { spawn "fuzzel"; }
     Mod+E { spawn "nautilus"; }
     Mod+Grave { spawn "alacritty" "--class" "dropdown"; }
+    Mod+Shift+D { spawn-sh "$HOME/.local/bin/dock extend"; }
     Mod+Q repeat=false { close-window; }
 
     // Focus
@@ -258,10 +265,10 @@ binds {
     Mod+Comma { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
     Mod+O { toggle-overview; }
-    Mod+Shift+V { spawn-sh "cliphist list | fuzzel --dmenu --prompt='Clipboard: ' --width=60 --lines=15 | cliphist decode | wl-copy"; }
+    Mod+Shift+V { spawn-sh "$HOME/.local/bin/clipboard-history"; }
 
     // Session, screenshots, hotkey help
-    Super+Alt+L { spawn "swaylock" "-f"; }
+    Super+Alt+L { spawn-sh "$HOME/.local/bin/lock-screen"; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+E { quit; }
     Mod+Shift+Slash { show-hotkey-overlay; }
@@ -271,9 +278,9 @@ binds {
     Mod+S { screenshot; }
     Mod+Shift+S { screenshot-screen; }
     // Region / full-screen straight to the clipboard (no file).
-    Mod+Alt+Print { spawn-sh r#"grim -g "$(slurp)" - | wl-copy --type image/png"#; }
-    Mod+Alt+S { spawn-sh r#"grim -g "$(slurp)" - | wl-copy --type image/png"#; }
-    Mod+Alt+Shift+Print { spawn-sh "grim - | wl-copy --type image/png"; }
+    Mod+Alt+Print { spawn-sh "$HOME/.local/bin/screenshot-region"; }
+    Mod+Alt+S { spawn-sh "$HOME/.local/bin/screenshot-region"; }
+    Mod+Alt+Shift+Print { spawn-sh "$HOME/.local/bin/screenshot-full"; }
     Mod+Shift+P { power-off-monitors; }
 
     // Laptop keys

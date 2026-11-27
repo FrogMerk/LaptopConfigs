@@ -52,4 +52,5 @@ for pkg in "${packages[@]}"; do
 done
 
 cd "$DOTFILES"
+mkdir -p "$HOME/.local/bin" "$HOME/.config/systemd/user"
 stow --verbose=1 --restow --target="$HOME" "${packages[@]}"

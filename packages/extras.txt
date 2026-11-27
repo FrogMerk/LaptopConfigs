@@ -9,6 +9,8 @@ udiskie
 ripgrep
 fd
 bat
+make
+neovim
 man-db
 bash-completion
 openssh

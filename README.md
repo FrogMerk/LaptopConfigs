@@ -12,6 +12,8 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
 - Alacritty + Zsh + Starship, themed with Everforest Dark
 - Waybar, mako, fuzzel, swaylock and swaybg
 - Clipboard history (cliphist) and removable-drive automount (udiskie)
+- Neovim, xdg default-app associations and personal helper scripts
+- Monthly maintenance timer and a one-command restore test
 - nftables default-deny inbound firewall
 - Weekly reflector mirror refresh (Australia, HTTPS)
 - PipeWire, NetworkManager, BlueZ
@@ -102,6 +104,7 @@ missing desktop packages and sets the login shell in one step.
 | `Mod+D` | launcher (fuzzel) |
 | `Mod+E` | file manager (Nautilus) |
 | `Mod+Grave` | dropdown terminal (Alacritty, `--class dropdown`) |
+| `Mod+Shift+D` | dock: extend display to the external monitor |
 | `Mod+Q` | close window |
 | `Mod+H/J/K/L` or arrows | focus |
 | `Mod+Shift+H/J/K/L` | move column/window |
@@ -129,6 +132,8 @@ missing desktop packages and sets the login shell in one step.
 
 `udiskie` runs at login, automounts removable drives and shows a Waybar tray icon. Clipboard history uses `cliphist` + fuzzel and is installed by the baseline script.
 
+Idle policy: lock after 5 minutes, display off after 6 minutes, suspend after 20 minutes. Lock is `swayidle` → `swaylock`; suspend is skipped when an app holds an idle inhibitor.
+
 Touchpad gestures are niri's defaults: horizontal scroll pans the column view, swipes switch workspaces. Tune `input.touchpad` in `dotfiles/niri/.config/niri/config.kdl`.
 
 ## Workspaces
@@ -144,6 +149,17 @@ Touchpad gestures are niri's defaults: horizontal scroll pans the column view, s
 | `Mod+7..9` | dynamic | scratch workspaces |
 
 Waybar shows the workspace names. Apps route automatically: Firefox to `web`, Nautilus to `files`, viewers to `media`, and chat/code apps to their workspaces. New windows use the rules in `dotfiles/niri/.config/niri/config.kdl`; move anything manually with `Mod+Shift+<number>`.
+
+## Defaults
+
+- Editor: Neovim (`EDITOR=nvim`, `vim` aliased to `nvim`)
+- Browser: Firefox
+- Files: Nautilus
+- Images: imv
+- Video: mpv
+- Terminal: Alacritty
+
+Associations live in `dotfiles/xdg/.config/mimeapps.list`; `xdg-mime query default <type>` verifies them.
 
 ## Theming
 
@@ -180,6 +196,7 @@ sudo pacman -Syu
 - `checkupdates` lists pending upgrades without touching the system.
 - `paccache.timer` trims the package cache weekly; `reflector.timer` refreshes the mirrorlist weekly.
 - `nftables.service` applies `/etc/nftables.conf`, which denies unsolicited inbound traffic.
+- `make check` (or the `maintenance` command) writes a monthly report; the user timer runs it on the first of each month at 09:00 and sends a notification.
 
 ## System maintenance
 
@@ -194,10 +211,38 @@ nftables ruleset, configures reflector for Australia, and installs `fakeroot`.
 Re-running it is safe. Reboot once after the first run so the ESP mask is
 applied from fstab.
 
+Monthly report and restore test:
+
+```bash
+make check    # ~/.cache/maintenance/last-check.txt
+make test     # restore HEAD into a temporary HOME and validate it
+```
+
+Enable or inspect the monthly timer:
+
+```bash
+systemctl --user list-timers maintenance-check.timer
+```
+
+## Docking
+
+With an external monitor connected:
+
+```bash
+dock extend          # internal + external to the right
+dock external-only   # external only
+dock internal-only   # back to the laptop panel
+```
+
+`Mod+Shift+D` runs `dock extend`. The same helper is in
+`dotfiles/bin/.local/bin/dock`; adjust the position if the monitor is on the
+left.
+
 ## Layout
 
 ```
 .
+├── Makefile
 ├── bootstrap/
 │   ├── config.env.example
 │   ├── lib.sh
@@ -211,6 +256,7 @@ applied from fstab.
 │   └── extras.txt
 ├── dotfiles/
 │   ├── alacritty/.config/alacritty/alacritty.toml
+│   ├── bin/.local/bin/
 │   ├── fuzzel/.config/fuzzel/fuzzel.ini
 │   ├── gtk/.config/gtk-3.0/settings.ini
 │   ├── gtk/.config/gtk-3.0/gtk.css
@@ -220,8 +266,10 @@ applied from fstab.
 │   ├── niri/.config/niri/config.kdl
 │   ├── starship/.config/starship.toml
 │   ├── swaylock/.config/swaylock/config
+│   ├── systemd-user/.config/systemd/user/
 │   ├── waybar/.config/waybar/config.jsonc
 │   ├── waybar/.config/waybar/style.css
+│   ├── xdg/.config/mimeapps.list
 │   └── zsh/.zshrc
 ├── etc/
 │   ├── greetd/config.toml
@@ -233,13 +281,16 @@ applied from fstab.
 ├── docs/
 │   ├── AUDIT.md
 │   ├── ROADMAP.md
+│   ├── SECRETS.md
 │   └── THEME.md
 ├── scripts/
 │   ├── apply-dotfiles.sh
 │   ├── apply-system-fixes.sh
 │   ├── install-baseline.sh
 │   ├── install-extras.sh
-│   └── make-wallpaper.py
+│   ├── maintenance-check.sh
+│   ├── make-wallpaper.py
+│   └── test-restore.sh
 └── post-install.sh
 ```
 
@@ -257,4 +308,4 @@ applied from fstab.
 
 ## Security
 
-`bootstrap/config.env` is gitignored, but treat it as sensitive: it contains your hostname and disk layout, not passwords. Never commit Wi-Fi credentials, SSH keys, or passphrases. Keep secrets in `pass`/`age` outside this repo.
+`bootstrap/config.env` is gitignored, but treat it as sensitive: it contains your hostname and disk layout, not passwords. Never commit Wi-Fi credentials, SSH keys, or passphrases. Keep secrets in `pass`/`age` outside this repo. Authentication and signing notes live in `docs/SECRETS.md`.

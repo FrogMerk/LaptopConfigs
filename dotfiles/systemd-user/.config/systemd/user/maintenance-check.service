@@ -1,0 +1,6 @@
+[Unit]
+Description=Monthly maintenance check
+
+[Service]
+Type=oneshot
+ExecStart=%h/LaptopConfigs/scripts/maintenance-check.sh
