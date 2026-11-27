@@ -36,6 +36,13 @@ if ! find "$HOME/Pictures/Wallpapers" -maxdepth 1 -type f 2>/dev/null | grep -q 
   warn "Add wallpapers to ~/Pictures/Wallpapers; wpaperd cycles that directory."
 fi
 
+if command -v systemctl >/dev/null 2>&1; then
+  log "Starting the wallpaper service"
+  systemctl --user daemon-reload 2>/dev/null || true
+  systemctl --user enable --now wpaperd.service 2>/dev/null ||
+    warn "Could not start wpaperd.service; run: systemctl --user enable --now wpaperd.service"
+fi
+
 if command -v niri >/dev/null 2>&1; then
   log "Validating niri config"
   if ! niri validate; then

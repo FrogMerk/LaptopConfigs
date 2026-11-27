@@ -51,7 +51,8 @@ Everforest GTK theme, and Papirus icons with green folders.
 | `dotfiles/gtk/.config/gtk-4.0/` | same theme as a libadwaita override |
 | `dotfiles/gtk/.config/gtk-3.0/settings.ini` | GTK3 theme, icons, fonts, cursor |
 | `dotfiles/wpaperd/.config/wpaperd/config.toml` | wallpaper directory, interval, fade |
-| `dotfiles/bin/.local/bin/wallpaper` | picker and wpaperctl wrapper |
+| `dotfiles/systemd-user/.config/systemd/user/wpaperd.service` | wallpaper daemon lifecycle |
+| `dotfiles/bin/.local/bin/wallpaper` | picker, reload and wpaperctl wrapper |
 | `scripts/apply-everforest-icons.sh` | green Papirus folder overlay |
 | `etc/greetd/config.toml` | tuigreet colour theme |
 
@@ -111,8 +112,10 @@ GTK4/libadwaita ignores `gtk-theme-name` for most widgets; the files in
 
 Wallpapers are user content and are not tracked. Put any PNG/JPEG/WebP/AVIF in
 `~/Pictures/Wallpapers`; `wpaperd` cycles them every 30 minutes with a 1.2 s
-fade. The active image is exposed through the state symlink used by
-`wallpaper current` and the lock screen. There is no generated wallpaper.
+fade. After changing the folder, run `wallpaper reload` to rescan it. The
+daemon is a systemd user service (`wpaperd.service`); the active image is
+exposed through the state symlink used by `wallpaper current` and the lock
+screen. There is no generated wallpaper.
 
 ## Qt
 

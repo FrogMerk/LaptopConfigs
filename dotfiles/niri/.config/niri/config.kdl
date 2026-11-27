@@ -271,7 +271,6 @@ environment {
 spawn-at-startup "mako"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "waybar"
-spawn-at-startup "wpaperd"
 spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "udiskie" "--automount" "--notify" "--tray"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"

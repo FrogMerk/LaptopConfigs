@@ -34,6 +34,7 @@ links=(
   .config/gtk-4.0
   .config/mimeapps.list
   .config/systemd/user/maintenance-check.timer
+  .config/systemd/user/wpaperd.service
   .config/wpaperd
   .themes/Everforest-Green-Dark-Medium
   .zshrc

@@ -174,15 +174,26 @@ the wallpaper behind the terminal, launcher and notifications. See
 ## Wallpapers
 
 `wpaperd` cycles everything you put in `~/Pictures/Wallpapers` every 30
-minutes (subdirectories included). Control it with:
+minutes (subdirectories included). It runs as the `wpaperd.service` systemd
+user unit. Control it with:
 
 ```bash
 wallpaper pick      # choose with fuzzel (also Mod+Shift+W)
 wallpaper next      # or Mod+Alt+W
 wallpaper prev
+wallpaper reload    # rescan after adding/removing files
 wallpaper pause
 wallpaper resume
 wallpaper current   # print the active image
+```
+
+After adding or deleting images, run `wallpaper reload`; otherwise the current
+image stays on screen until the 30-minute cycle ends. Do not run `wpaperd`
+directly in a terminal — a second instance replaces the IPC socket and breaks
+`wpaperctl`. Use `wallpaper reload` or:
+
+```bash
+systemctl --user restart wpaperd.service
 ```
 
 `wpaperd` keeps a symlink to the active image in

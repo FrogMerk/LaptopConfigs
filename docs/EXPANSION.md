@@ -39,8 +39,9 @@ make test
 - [x] Waybar v2: medium density, 34 px bar, 8 px pills, tooltips and state colours
 - [x] Useful Waybar modules: idle inhibitor, custom updates, media, CPU/memory,
       temperature. Keyboard layout skipped (only `us` is configured)
-- [x] Wallpaper manager: `wpaperd` cycles `~/Pictures/Wallpapers`; `wallpaper
-      pick/next` controls it. Images are user-sourced, not generated
+- [x] Wallpaper manager: `wpaperd` runs as a user service and cycles
+      `~/Pictures/Wallpapers`; `wallpaper pick/next/reload` controls it. Images
+      are user-sourced, not generated
 - [x] GTK depth: full Everforest GTK theme (green/dark/medium), vendored for stow
 - [x] Qt theme path: deferred; no Qt apps are installed yet. Prefer `qt6ct` later
 - [x] Icon and cursor decision: Papirus-Dark with a green folder overlay;
