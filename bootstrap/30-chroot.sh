@@ -7,7 +7,7 @@ require_root
 
 # Refuse to run on the live ISO: there / is an overlay, in the new system it is ext4.
 if [[ "$(findmnt -n -o FSTYPE / 2>/dev/null)" == "overlay" ]]; then
-  die "Run this inside the new system: arch-chroot /mnt /root/t480-arch/bootstrap/30-chroot.sh"
+  die "Run this inside the new system: arch-chroot /mnt /root/$(basename "$REPO_DIR")/bootstrap/30-chroot.sh"
 fi
 
 load_config

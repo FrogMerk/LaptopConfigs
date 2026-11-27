@@ -1,4 +1,4 @@
-# t480-arch
+# LaptopConfigs
 
 Minimal, reproducible Arch setup for a Lenovo ThinkPad T480 (1080p, Intel iGPU, no touchscreen): **niri** + **greetd/tuigreet**, systemd-boot, ext4.
 
@@ -26,8 +26,8 @@ System config lives in `etc/`, dotfiles in `dotfiles/` (stowed into `$HOME`), an
    ```
 3. Clone this repo into the live environment (or copy it from a USB stick):
    ```bash
-   git clone <your-repo-url> ~/t480-arch
-   cd ~/t480-arch
+   git clone <your-repo-url> ~/LaptopConfigs
+   cd ~/LaptopConfigs
    cp bootstrap/config.env.example bootstrap/config.env
    $EDITOR bootstrap/config.env
    ```
@@ -48,7 +48,7 @@ Run from the live ISO, in order:
 sudo ./bootstrap/00-preflight.sh
 sudo ./bootstrap/10-partition.sh    # destructive; asks you to retype the disk
 sudo ./bootstrap/20-pacstrap.sh
-sudo arch-chroot /mnt /root/t480-arch/bootstrap/30-chroot.sh
+sudo arch-chroot /mnt /root/LaptopConfigs/bootstrap/30-chroot.sh
 ```
 
 `30-chroot.sh` asks for the root and user passwords, installs systemd-boot, copies the `etc/` overlays and enables services. When it finishes:
@@ -64,17 +64,17 @@ reboot
 Log in at tuigreet; it starts niri. Open a terminal with `Mod+T` and bring the repo into your home directory:
 
 ```bash
-sudo cp -a /root/t480-arch ~/t480-arch
-sudo chown -R "$USER:$USER" ~/t480-arch
-cd ~/t480-arch
+sudo cp -a /root/LaptopConfigs ~/LaptopConfigs
+sudo chown -R "$USER:$USER" ~/LaptopConfigs
+cd ~/LaptopConfigs
 ./post-install.sh
 ```
 
 If you already pushed the repo to GitHub, clone it instead:
 
 ```bash
-git clone <your-repo-url> ~/t480-arch
-cd ~/t480-arch
+git clone <your-repo-url> ~/LaptopConfigs
+cd ~/LaptopConfigs
 ./post-install.sh
 ```
 
@@ -155,6 +155,8 @@ sudo pacman -Syu
 │   ├── tlp.d/10-t480.conf
 │   ├── systemd/zram-generator.conf
 │   └── sysctl.d/99-zram.conf
+├── docs/
+│   └── ROADMAP.md
 ├── scripts/
 │   ├── apply-dotfiles.sh
 │   └── install-extras.sh

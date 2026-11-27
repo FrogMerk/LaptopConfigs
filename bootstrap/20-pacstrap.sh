@@ -34,13 +34,14 @@ log "Writing fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
 log "Copying repo into the new system"
-mkdir -p /mnt/root/t480-arch
-cp -a "$REPO_DIR/." /mnt/root/t480-arch/
+REPO_NAME="$(basename "$REPO_DIR")"
+mkdir -p "/mnt/root/$REPO_NAME"
+cp -a "$REPO_DIR/." "/mnt/root/$REPO_NAME/"
 
 log "Base install complete."
-cat <<'EOF'
+cat <<EOF
 
 Next:
-  arch-chroot /mnt /root/t480-arch/bootstrap/30-chroot.sh
+  arch-chroot /mnt /root/$REPO_NAME/bootstrap/30-chroot.sh
 
 EOF

@@ -11,7 +11,9 @@ command -v stow >/dev/null 2>&1 || {
 
 packages=("$@")
 if [[ ${#packages[@]} -eq 0 ]]; then
-  packages=(niri foot fuzzel mako)
+  mapfile -t packages < <(
+    find "$DOTFILES" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort
+  )
 fi
 
 backup="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
